@@ -190,7 +190,7 @@ const GRID_CELLS = (() => {
   const r = makeRnd(20260925)
   return Array.from({ length: 24 }, () => ({
     x: (18 + Math.floor(r() * 19)) * 32,
-    y: Math.floor(r() * 9) * 32,
+    y: Math.floor(r() * 8) * 32,
     dur: (6 + r() * 9).toFixed(1),
     delay: (r() * 15).toFixed(1),
   }))
@@ -199,12 +199,12 @@ const GRID_CELLS = (() => {
 /* 沿网格线流动的点：[x, y, 方向] */
 const GRID_FLOWS = [
   [608, 32, 'x'], [768, 96, 'x'], [928, 160, 'x'], [1088, 224, 'x'],
-  [672, 288, 'x'], [1152, 64, 'y'], [1024, 128, 'y'], [832, 256, 'y'],
+  [672, 192, 'x'], [1152, 64, 'y'], [1024, 128, 'y'], [832, 224, 'y'],
 ]
 
 /* ── hero：柔光色团背景（mesh gradient）+ 左侧文字 ────────────────────── */
 function hero(t) {
-  const W = 1200, H = 300
+  const W = 1200, H = 272
 
   // 色团：[颜色, 不透明度, cx, cy, rx, ry]
   const mesh = t.mesh
@@ -279,11 +279,11 @@ function hero(t) {
     ${flows}
     ${dots}
 
-    <text x="64" y="78" font-family="${MONO}" font-size="12" letter-spacing="3.2" fill="${t.accentDeep}">${esc(HERO.kicker)}</text>
-    <text x="64" y="146" font-family="${SANS}" font-size="58" font-weight="700" letter-spacing="-0.5" fill="${t.ink}">${esc(HERO.name)}</text>
-    <rect x="66" y="166" width="56" height="4" rx="2" fill="url(#accent)" />
-    <text x="64" y="212" font-family="${SANS}" font-size="21" fill="${t.body}">${esc(HERO.tagline)}</text>
-    <text x="64" y="248" font-family="${MONO}" font-size="13" fill="${t.meta}">${esc(HERO.meta)}</text>
+    <text x="64" y="66" font-family="${MONO}" font-size="12" letter-spacing="3.2" fill="${t.accentDeep}">${esc(HERO.kicker)}</text>
+    <text x="64" y="134" font-family="${SANS}" font-size="58" font-weight="700" letter-spacing="-0.5" fill="${t.ink}">${esc(HERO.name)}</text>
+    <rect x="66" y="154" width="56" height="4" rx="2" fill="url(#accent)" />
+    <text x="64" y="200" font-family="${SANS}" font-size="21" fill="${t.body}">${esc(HERO.tagline)}</text>
+    <text x="64" y="236" font-family="${MONO}" font-size="13" fill="${t.meta}">${esc(HERO.meta)}</text>
   </g>
   <rect x="0.75" y="0.75" width="${W - 1.5}" height="${H - 1.5}" rx="25" fill="none" stroke="${t.cardBorder}" stroke-width="1.5" />
 </svg>
@@ -293,13 +293,13 @@ function hero(t) {
 /* ── 项目卡 ───────────────────────────────────────────────────────────── */
 /* ── 项目卡（按并排显示的实际尺寸 1:1 设计，字才不会缩成蚂蚁） ────────── */
 function project(t, p) {
-  const W = 440, H = 240
+  const W = 440, H = 210
   let x = 28
   const pills = p.tags.map((tag) => {
     const w = Math.round(monoWidth(tag, 10.5) + 24)
     const pill = `<g>
-      <rect x="${x}" y="180" width="${w}" height="24" rx="12" fill="${t.chipBg}" />
-      <text x="${x + w / 2}" y="196" text-anchor="middle" font-family="${MONO}" font-size="10.5" fill="${t.chipText}">${esc(tag)}</text>
+      <rect x="${x}" y="164" width="${w}" height="24" rx="12" fill="${t.chipBg}" />
+      <text x="${x + w / 2}" y="180" text-anchor="middle" font-family="${MONO}" font-size="10.5" fill="${t.chipText}">${esc(tag)}</text>
     </g>`
     x += w + 7
     return pill
@@ -318,13 +318,13 @@ function project(t, p) {
   <g clip-path="url(#card)">
     <rect width="${W}" height="${H}" fill="${t.card}" />
     <rect x="0" y="0" width="4" height="${H}" fill="url(#bar)" />
-    <text x="28" y="42" font-family="${MONO}" font-size="10" letter-spacing="2" fill="${t.chipText}">${esc(p.label)}</text>
-    <rect x="${chipX}" y="28" width="26" height="26" rx="8" fill="${t.chipBg}" />
-    <text x="${chipX + 13}" y="46" text-anchor="middle" font-family="${MONO}" font-size="11.5" fill="${t.chipText}">${esc(p.index)}</text>
-    <text x="28" y="98" font-family="${SANS}" font-size="24" font-weight="600" fill="${t.ink}">${esc(p.title)}</text>
-    ${p.lines.map((line, i) => `<text x="28" y="${132 + i * 22}" font-family="${SANS}" font-size="12.5" fill="${t.body}">${esc(line)}</text>`).join('\n    ')}
+    <text x="28" y="38" font-family="${MONO}" font-size="10" letter-spacing="2" fill="${t.chipText}">${esc(p.label)}</text>
+    <rect x="${chipX}" y="22" width="26" height="26" rx="8" fill="${t.chipBg}" />
+    <text x="${chipX + 13}" y="40" text-anchor="middle" font-family="${MONO}" font-size="11.5" fill="${t.chipText}">${esc(p.index)}</text>
+    <text x="28" y="90" font-family="${SANS}" font-size="24" font-weight="600" fill="${t.ink}">${esc(p.title)}</text>
+    ${p.lines.map((line, i) => `<text x="28" y="${122 + i * 22}" font-family="${SANS}" font-size="12.5" fill="${t.body}">${esc(line)}</text>`).join('\n    ')}
     ${pills.join('\n    ')}
-    <text x="${W - 28}" y="196" text-anchor="end" font-family="${MONO}" font-size="16" fill="${t.accent}">→</text>
+    <text x="${W - 28}" y="182" text-anchor="end" font-family="${MONO}" font-size="16" fill="${t.accent}">→</text>
   </g>
   <rect x="0.75" y="0.75" width="${W - 1.5}" height="${H - 1.5}" rx="15" fill="none" stroke="${t.cardBorder}" stroke-width="1.5" />
 </svg>
@@ -333,9 +333,9 @@ function project(t, p) {
 
 /* ── 自我介绍卡（成分表 + 闪电阴影 + 居中印章）──────────────────────── */
 function intro(t) {
-  const W = 900, H = 320
+  const W = 900, H = 296
   const p = INTRO
-  const cols = [52, 470], rows = [172, 216, 260]
+  const cols = [52, 470], rows = [160, 204, 248]
   const SEG_W = 20, SEG_GAP = 4, SEG_X = 112
 
   const bars = p.metrics.map(([icon, label, n], i) => {
@@ -352,7 +352,7 @@ function intro(t) {
 
   const SEAL_FONT = "'SimSun', 'Songti SC', 'STSong', 'Noto Serif CJK SC', serif"
   const stampW = Math.round(p.stamp.length * 22 * 0.92 + 40)
-  const stampX = 390, stampY = 268
+  const stampX = 390, stampY = 250
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
   <title id="t">${esc(p.alt)}</title>
@@ -378,15 +378,15 @@ function intro(t) {
     <path d="M55,0 L10,80 L40,80 L22,150 L78,62 L46,62 L74,0 Z" transform="translate(560 0) scale(2.8 2.15)"
           fill="${t.shadow}" opacity="0.055" />
 
-    <circle cx="52" cy="60" r="24" fill="url(#ava)" />
-    <text x="52" y="69" text-anchor="middle" font-family="${SANS}" font-size="22" font-weight="700" fill="#FFFFFF">j</text>
-    <text x="88" y="52" font-family="${SANS}" font-size="19" font-weight="600" fill="${t.ink}">${esc(p.handle)}</text>
-    <text x="88" y="74" font-family="${SANS}" font-size="12.5" fill="${t.meta}">${esc(p.role)}</text>
+    <circle cx="52" cy="50" r="24" fill="url(#ava)" />
+    <text x="52" y="59" text-anchor="middle" font-family="${SANS}" font-size="22" font-weight="700" fill="#FFFFFF">j</text>
+    <text x="88" y="42" font-family="${SANS}" font-size="19" font-weight="600" fill="${t.ink}">${esc(p.handle)}</text>
+    <text x="88" y="64" font-family="${SANS}" font-size="12.5" fill="${t.meta}">${esc(p.role)}</text>
 
-    <text x="${W - 52}" y="70" text-anchor="end" font-family="${SANS}" font-size="40" font-weight="700" letter-spacing="-1" fill="${t.ink}">${esc(p.score)}</text>
-    <text x="${W - 52}" y="88" text-anchor="end" font-family="${SANS}" font-size="11" fill="${t.meta}">${esc(p.scoreUnit)}</text>
+    <text x="${W - 52}" y="60" text-anchor="end" font-family="${SANS}" font-size="40" font-weight="700" letter-spacing="-1" fill="${t.ink}">${esc(p.score)}</text>
+    <text x="${W - 52}" y="78" text-anchor="end" font-family="${SANS}" font-size="11" fill="${t.meta}">${esc(p.scoreUnit)}</text>
 
-    <line x1="52" y1="104" x2="${W - 52}" y2="104" stroke="${t.cardBorder}" stroke-width="1" />
+    <line x1="52" y1="94" x2="${W - 52}" y2="94" stroke="${t.cardBorder}" stroke-width="1" />
 
     <g transform="rotate(-4 ${stampX} ${stampY})" opacity="0.9" filter="url(#ink)">
       <rect x="${stampX - stampW / 2}" y="${stampY - 31}" width="${stampW}" height="62" rx="6" fill="none" stroke="${t.seal}" stroke-width="3.5" />

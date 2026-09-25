@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="440" height="240" viewBox="0 0 440 240" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="210" viewBox="0 0 440 210" role="img" aria-labelledby="t d">
   <title id="t">PulseInk — 面向内容活动的 Java Agent 智能工作台</title>
   <desc id="d">项目卡片：编号 01，PulseInk。</desc>
   <defs>
@@ -6,30 +6,30 @@
       <stop offset="0" stop-color="#047857" />
       <stop offset="1" stop-color="#34D399" />
     </linearGradient>
-    <clipPath id="card"><rect width="440" height="240" rx="16" /></clipPath>
+    <clipPath id="card"><rect width="440" height="210" rx="16" /></clipPath>
   </defs>
   <g clip-path="url(#card)">
-    <rect width="440" height="240" fill="#0B211C" />
-    <rect x="0" y="0" width="4" height="240" fill="url(#bar)" />
-    <text x="28" y="42" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="10" letter-spacing="2" fill="#6EE7B7">OPEN SOURCE · JAVA AGENT</text>
-    <rect x="386" y="28" width="26" height="26" rx="8" fill="#0F2E26" />
-    <text x="399" y="46" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="11.5" fill="#6EE7B7">01</text>
-    <text x="28" y="98" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="24" font-weight="600" fill="#EAF7F2">PulseInk</text>
-    <text x="28" y="132" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12.5" fill="#B9D6CC">面向内容活动的 Java Agent 智能工作台：</text>
-    <text x="28" y="154" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12.5" fill="#B9D6CC">知识检索、多角色协作、人工审批、可解释评测。</text>
+    <rect width="440" height="210" fill="#0B211C" />
+    <rect x="0" y="0" width="4" height="210" fill="url(#bar)" />
+    <text x="28" y="38" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="10" letter-spacing="2" fill="#6EE7B7">OPEN SOURCE · JAVA AGENT</text>
+    <rect x="386" y="22" width="26" height="26" rx="8" fill="#0F2E26" />
+    <text x="399" y="40" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="11.5" fill="#6EE7B7">01</text>
+    <text x="28" y="90" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="24" font-weight="600" fill="#EAF7F2">PulseInk</text>
+    <text x="28" y="122" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12.5" fill="#B9D6CC">面向内容活动的 Java Agent 智能工作台：</text>
+    <text x="28" y="144" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="12.5" fill="#B9D6CC">知识检索、多角色协作、人工审批、可解释评测。</text>
     <g>
-      <rect x="28" y="180" width="70" height="24" rx="12" fill="#0F2E26" />
-      <text x="63" y="196" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="10.5" fill="#6EE7B7">Java 21</text>
+      <rect x="28" y="164" width="70" height="24" rx="12" fill="#0F2E26" />
+      <text x="63" y="180" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="10.5" fill="#6EE7B7">Java 21</text>
     </g>
     <g>
-      <rect x="105" y="180" width="83" height="24" rx="12" fill="#0F2E26" />
-      <text x="146.5" y="196" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="10.5" fill="#6EE7B7">Spring AI</text>
+      <rect x="105" y="164" width="83" height="24" rx="12" fill="#0F2E26" />
+      <text x="146.5" y="180" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="10.5" fill="#6EE7B7">Spring AI</text>
     </g>
     <g>
-      <rect x="195" y="180" width="57" height="24" rx="12" fill="#0F2E26" />
-      <text x="223.5" y="196" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="10.5" fill="#6EE7B7">Vue 3</text>
+      <rect x="195" y="164" width="57" height="24" rx="12" fill="#0F2E26" />
+      <text x="223.5" y="180" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="10.5" fill="#6EE7B7">Vue 3</text>
     </g>
-    <text x="412" y="196" text-anchor="end" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="16" fill="#34D399">→</text>
+    <text x="412" y="182" text-anchor="end" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="16" fill="#34D399">→</text>
   </g>
-  <rect x="0.75" y="0.75" width="438.5" height="238.5" rx="15" fill="none" stroke="#14532D" stroke-width="1.5" />
+  <rect x="0.75" y="0.75" width="438.5" height="208.5" rx="15" fill="none" stroke="#14532D" stroke-width="1.5" />
 </svg>

@@ -25,7 +25,6 @@
 <div align="center">
 <a href="https://github.com/j11andme/pulseink"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/project-pulseink-dark.svg" /><source media="(prefers-color-scheme: light)" srcset="./assets/project-pulseink-light.svg" /><img src="./assets/project-pulseink-light.svg" alt="PulseInk — 面向内容活动的 Java Agent 智能工作台" width="49%" /></picture></a> <a href="https://github.com/j11andme/FDA-Net"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/project-fdanet-dark.svg" /><source media="(prefers-color-scheme: light)" srcset="./assets/project-fdanet-light.svg" /><img src="./assets/project-fdanet-light.svg" alt="FDA-Net — 水下目标检测域泛化的频域对齐框架" width="49%" /></picture></a>
 <br />
-<br />
 <a href="https://github.com/j11andme/pulseink/stargazers"><img alt="PulseInk" src="https://img.shields.io/github/stars/j11andme/pulseink?style=flat-square&label=PulseInk&labelColor=047857&color=10B981" /></a> &nbsp; <a href="https://github.com/j11andme/FDA-Net/stargazers"><img alt="FDA-Net" src="https://img.shields.io/github/stars/j11andme/FDA-Net?style=flat-square&label=FDA-Net&labelColor=047857&color=10B981" /></a>
 </div>
 

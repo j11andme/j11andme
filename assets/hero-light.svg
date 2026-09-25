@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="272" viewBox="0 0 1200 272" role="img" aria-labelledby="t d">
   <title id="t">j11andme — Agent 应用工程、内容工作流与计算机视觉</title>
   <desc id="d">资料横幅：左侧姓名与技术方向，右侧为青绿柔光色团背景，色团缓慢漂移。</desc>
   <defs>
@@ -18,7 +18,7 @@
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="#E7FAF2" stroke-width="1" />
     </pattern>
-    <clipPath id="frame"><rect width="1200" height="300" rx="26" /></clipPath>
+    <clipPath id="frame"><rect width="1200" height="272" rx="26" /></clipPath>
     <radialGradient id="m0">
       <stop offset="0" stop-color="#6EE7B7" stop-opacity="0.88" />
       <stop offset="0.55" stop-color="#6EE7B7" stop-opacity="0.396" />
@@ -90,7 +90,7 @@
     @media (prefers-reduced-motion: reduce) { .drift, .beam, .pt, .cell, .flow { animation: none !important; } }
   </style>
   <g clip-path="url(#frame)">
-    <rect width="1200" height="300" fill="url(#surface)" />
+    <rect width="1200" height="272" fill="url(#surface)" />
     <ellipse class="drift" cx="1030" cy="0" rx="400" ry="280" fill="url(#m0)" />
     <ellipse class="drift drift-b" cx="1190" cy="250" rx="340" ry="240" fill="url(#m1)" />
     <ellipse class="drift drift-c" cx="660" cy="300" rx="360" ry="230" fill="url(#m2)" />
@@ -98,40 +98,40 @@
     <g transform="rotate(-17 950 40)"><g class="beam"><rect x="430" y="-25" width="1040" height="130" fill="url(#beam0)" /></g></g>
     <g transform="rotate(-13 1080 250)"><g class="beam beam-b"><rect x="620" y="195" width="920" height="110" fill="url(#beam1)" /></g></g>
     <g transform="rotate(-20 820 150)"><g class="beam beam-c"><rect x="390" y="105" width="860" height="90" fill="url(#beam2)" /></g></g>
-    <rect width="1200" height="300" fill="url(#grid)" opacity="0.45" />
-    <rect width="1200" height="300" fill="url(#fade)" />
-    <rect class="cell" x="961" y="257" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:10.5s;animation-delay:9.1s" />
-    <rect class="cell" x="1089" y="161" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:14.5s;animation-delay:5.9s" />
+    <rect width="1200" height="272" fill="url(#grid)" opacity="0.45" />
+    <rect width="1200" height="272" fill="url(#fade)" />
+    <rect class="cell" x="961" y="225" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:10.5s;animation-delay:9.1s" />
+    <rect class="cell" x="1089" y="129" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:14.5s;animation-delay:5.9s" />
     <rect class="cell" x="1057" y="1" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:7.6s;animation-delay:14.6s" />
     <rect class="cell" x="1089" y="65" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:10.8s;animation-delay:11.4s" />
-    <rect class="cell" x="737" y="97" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:8.2s;animation-delay:14.8s" />
+    <rect class="cell" x="737" y="65" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:8.2s;animation-delay:14.8s" />
     <rect class="cell" x="833" y="193" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:8.8s;animation-delay:2.0s" />
-    <rect class="cell" x="833" y="225" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:9.3s;animation-delay:11.4s" />
+    <rect class="cell" x="833" y="193" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:9.3s;animation-delay:11.4s" />
     <rect class="cell" x="897" y="1" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:8.6s;animation-delay:9.4s" />
     <rect class="cell" x="1057" y="193" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:6.8s;animation-delay:13.5s" />
     <rect class="cell" x="833" y="1" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:11.7s;animation-delay:9.4s" />
     <rect class="cell" x="1089" y="33" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:7.4s;animation-delay:2.7s" />
     <rect class="cell" x="801" y="129" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:6.4s;animation-delay:3.4s" />
-    <rect class="cell" x="673" y="129" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:8.2s;animation-delay:9.4s" />
+    <rect class="cell" x="673" y="97" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:8.2s;animation-delay:9.4s" />
     <rect class="cell" x="993" y="33" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:9.4s;animation-delay:8.6s" />
     <rect class="cell" x="1025" y="1" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:14.3s;animation-delay:3.5s" />
     <rect class="cell" x="961" y="65" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:12.3s;animation-delay:9.3s" />
     <rect class="cell" x="641" y="65" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:14.4s;animation-delay:6.5s" />
     <rect class="cell" x="865" y="1" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:11.7s;animation-delay:9.9s" />
-    <rect class="cell" x="705" y="193" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:11.6s;animation-delay:12.6s" />
+    <rect class="cell" x="705" y="161" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:11.6s;animation-delay:12.6s" />
     <rect class="cell" x="1025" y="33" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:6.9s;animation-delay:4.8s" />
-    <rect class="cell" x="801" y="129" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:6.5s;animation-delay:1.6s" />
-    <rect class="cell" x="609" y="193" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:10.9s;animation-delay:7.6s" />
+    <rect class="cell" x="801" y="97" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:6.5s;animation-delay:1.6s" />
+    <rect class="cell" x="609" y="161" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:10.9s;animation-delay:7.6s" />
     <rect class="cell" x="961" y="1" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:14.1s;animation-delay:10.9s" />
     <rect class="cell" x="929" y="97" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:12.9s;animation-delay:0.4s" />
     <circle class="flow" cx="608" cy="32" r="2.4" fill="#10B981" style="animation-duration:9.0s;animation-delay:0.0s" />
     <circle class="flow" cx="768" cy="96" r="2.4" fill="#10B981" style="animation-duration:10.3s;animation-delay:0.9s" />
     <circle class="flow" cx="928" cy="160" r="2.4" fill="#10B981" style="animation-duration:11.6s;animation-delay:1.8s" />
     <circle class="flow" cx="1088" cy="224" r="2.4" fill="#10B981" style="animation-duration:12.9s;animation-delay:2.7s" />
-    <circle class="flow" cx="672" cy="288" r="2.4" fill="#10B981" style="animation-duration:14.2s;animation-delay:3.6s" />
+    <circle class="flow" cx="672" cy="192" r="2.4" fill="#10B981" style="animation-duration:14.2s;animation-delay:3.6s" />
     <circle class="flow flow-y" cx="1152" cy="64" r="2.4" fill="#10B981" style="animation-duration:15.5s;animation-delay:4.5s" />
     <circle class="flow flow-y" cx="1024" cy="128" r="2.4" fill="#10B981" style="animation-duration:16.8s;animation-delay:5.4s" />
-    <circle class="flow flow-y" cx="832" cy="256" r="2.4" fill="#10B981" style="animation-duration:18.1s;animation-delay:6.3s" />
+    <circle class="flow flow-y" cx="832" cy="224" r="2.4" fill="#10B981" style="animation-duration:18.1s;animation-delay:6.3s" />
     <circle class="pt" cx="672" cy="214" r="2.6" fill="#10B981" opacity="0.55" style="animation-duration:17s;animation-delay:0s" />
     <circle class="pt" cx="716" cy="96" r="1.8" fill="#10B981" opacity="0.42" style="animation-duration:21s;animation-delay:3.5s" />
     <circle class="pt" cx="758" cy="258" r="2.2" fill="#10B981" opacity="0.5" style="animation-duration:15s;animation-delay:7s" />
@@ -147,11 +147,11 @@
     <circle class="pt" cx="900" cy="30" r="1.4" fill="#10B981" opacity="0.3" style="animation-duration:25s;animation-delay:12s" />
     <circle class="pt" cx="1160" cy="58" r="2" fill="#10B981" opacity="0.44" style="animation-duration:19s;animation-delay:10s" />
 
-    <text x="64" y="78" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="12" letter-spacing="3.2" fill="#047857">你好，我是</text>
-    <text x="64" y="146" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="58" font-weight="700" letter-spacing="-0.5" fill="#0F172A">j11andme</text>
-    <rect x="66" y="166" width="56" height="4" rx="2" fill="url(#accent)" />
-    <text x="64" y="212" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="21" fill="#3D4C5A">Agent 应用工程 · 内容工作流 · 计算机视觉</text>
-    <text x="64" y="248" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#64748B">Java · Python · PyTorch · Vue · Docker</text>
+    <text x="64" y="66" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="12" letter-spacing="3.2" fill="#047857">你好，我是</text>
+    <text x="64" y="134" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="58" font-weight="700" letter-spacing="-0.5" fill="#0F172A">j11andme</text>
+    <rect x="66" y="154" width="56" height="4" rx="2" fill="url(#accent)" />
+    <text x="64" y="200" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="21" fill="#3D4C5A">Agent 应用工程 · 内容工作流 · 计算机视觉</text>
+    <text x="64" y="236" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#64748B">Java · Python · PyTorch · Vue · Docker</text>
   </g>
-  <rect x="0.75" y="0.75" width="1198.5" height="298.5" rx="25" fill="none" stroke="#D1FAE5" stroke-width="1.5" />
+  <rect x="0.75" y="0.75" width="1198.5" height="270.5" rx="25" fill="none" stroke="#D1FAE5" stroke-width="1.5" />
 </svg>
