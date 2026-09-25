@@ -57,8 +57,8 @@ const PROJECTS = [
     label: 'OPEN SOURCE · JAVA AGENT',
     title: 'PulseInk',
     lines: [
-      '面向内容活动的 Java Agent 智能工作台：知识检索、多角色协作、人工审批、',
-      '幂等发布与可解释评测。',
+      '面向内容活动的 Java Agent 智能工作台：',
+      '知识检索、多角色协作、人工审批、可解释评测。',
     ],
     tags: ['Java 21', 'Spring AI', 'Vue 3'],
     alt: 'PulseInk — 面向内容活动的 Java Agent 智能工作台',
@@ -69,8 +69,8 @@ const PROJECTS = [
     label: 'PAPER CODE · DOMAIN GENERALIZATION',
     title: 'FDA-Net',
     lines: [
-      '水下目标检测域泛化：通过频域解耦与对齐挖掘域不变特征（LFM + SAE + FSA），',
-      '论文配套代码，在 S-UODAC2020 上取得 SOTA。',
+      '水下目标检测域泛化：频域解耦与对齐，',
+      '配套论文代码，S-UODAC2020 上取得 SOTA。',
     ],
     tags: ['PyTorch', 'MMDetection', 'YOLO11s'],
     alt: 'FDA-Net — 水下目标检测域泛化的频域对齐框架',
@@ -158,19 +158,20 @@ function hero(t, key) {
 }
 
 /* ── 项目卡 ───────────────────────────────────────────────────────────── */
+/* ── 项目卡（按并排显示的实际尺寸 1:1 设计，字才不会缩成蚂蚁） ────────── */
 function project(t, p) {
-  const W = 900, H = 240
-  let x = 34
+  const W = 440, H = 240
+  let x = 28
   const pills = p.tags.map((tag) => {
-    const w = Math.round(monoWidth(tag, 12) + 28)
+    const w = Math.round(monoWidth(tag, 10.5) + 24)
     const pill = `<g>
-      <rect x="${x}" y="196" width="${w}" height="26" rx="13" fill="${t.chipBg}" />
-      <text x="${x + w / 2}" y="213" text-anchor="middle" font-family="${MONO}" font-size="12" fill="${t.chipText}">${esc(tag)}</text>
+      <rect x="${x}" y="180" width="${w}" height="24" rx="12" fill="${t.chipBg}" />
+      <text x="${x + w / 2}" y="196" text-anchor="middle" font-family="${MONO}" font-size="10.5" fill="${t.chipText}">${esc(tag)}</text>
     </g>`
-    x += w + 8
+    x += w + 7
     return pill
   })
-  const chipX = W - 34 - 30
+  const chipX = W - 28 - 26
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
   <title id="t">${esc(p.alt)}</title>
   <desc id="d">项目卡片：编号 ${p.index}，${esc(p.title)}。</desc>
@@ -179,20 +180,20 @@ function project(t, p) {
       <stop offset="0" stop-color="${t.accentSoft}" />
       <stop offset="1" stop-color="${t.accent}" />
     </linearGradient>
-    <clipPath id="card"><rect width="${W}" height="${H}" rx="18" /></clipPath>
+    <clipPath id="card"><rect width="${W}" height="${H}" rx="16" /></clipPath>
   </defs>
   <g clip-path="url(#card)">
     <rect width="${W}" height="${H}" fill="${t.card}" />
-    <rect x="0" y="0" width="5" height="${H}" fill="url(#bar)" />
-    <text x="34" y="56" font-family="${MONO}" font-size="12" letter-spacing="2.6" fill="${t.chipText}">${esc(p.label)}</text>
-    <rect x="${chipX}" y="36" width="30" height="30" rx="9" fill="${t.chipBg}" />
-    <text x="${chipX + 15}" y="56" text-anchor="middle" font-family="${MONO}" font-size="13" fill="${t.chipText}">${esc(p.index)}</text>
-    <text x="34" y="126" font-family="${SANS}" font-size="30" font-weight="600" fill="${t.ink}">${esc(p.title)}</text>
-    ${p.lines.map((line, i) => `<text x="34" y="${160 + i * 24}" font-family="${SANS}" font-size="15" fill="${t.body}">${esc(line)}</text>`).join('\n    ')}
+    <rect x="0" y="0" width="4" height="${H}" fill="url(#bar)" />
+    <text x="28" y="42" font-family="${MONO}" font-size="10" letter-spacing="2" fill="${t.chipText}">${esc(p.label)}</text>
+    <rect x="${chipX}" y="28" width="26" height="26" rx="8" fill="${t.chipBg}" />
+    <text x="${chipX + 13}" y="46" text-anchor="middle" font-family="${MONO}" font-size="11.5" fill="${t.chipText}">${esc(p.index)}</text>
+    <text x="28" y="98" font-family="${SANS}" font-size="24" font-weight="600" fill="${t.ink}">${esc(p.title)}</text>
+    ${p.lines.map((line, i) => `<text x="28" y="${132 + i * 22}" font-family="${SANS}" font-size="12.5" fill="${t.body}">${esc(line)}</text>`).join('\n    ')}
     ${pills.join('\n    ')}
-    <text x="866" y="214" text-anchor="end" font-family="${MONO}" font-size="20" fill="${t.accent}">→</text>
+    <text x="${W - 28}" y="196" text-anchor="end" font-family="${MONO}" font-size="16" fill="${t.accent}">→</text>
   </g>
-  <rect x="0.75" y="0.75" width="${W - 1.5}" height="${H - 1.5}" rx="17" fill="none" stroke="${t.cardBorder}" stroke-width="1.5" />
+  <rect x="0.75" y="0.75" width="${W - 1.5}" height="${H - 1.5}" rx="15" fill="none" stroke="${t.cardBorder}" stroke-width="1.5" />
 </svg>
 `
 }
