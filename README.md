@@ -16,7 +16,7 @@
 </p>
 
 <p>
-  <strong>现在在做：</strong><a href="https://github.com/j11andme/pulseink">PulseInk</a>（Java Agent 工作台）、<a href="https://github.com/j11andme/FDA-Net">FDA-Net</a>（小论文配套代码）。
+  <strong>现在在做：</strong><a href="https://github.com/j11andme/pulseink">PulseInk</a>（Java Agent 工作台）、<a href="https://github.com/j11andme/FDA-Net">FDA-Net</a>（水下目标检测域泛化方法）。
 </p>
 
 <p>

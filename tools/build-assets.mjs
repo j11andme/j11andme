@@ -47,7 +47,7 @@ const HERO = {
   tagline: 'Agent 应用工程 · 内容工作流 · 计算机视觉',
   meta: 'Java · Python · PyTorch · Vue · Docker',
   alt: 'j11andme — Agent 应用工程、内容工作流与计算机视觉',
-  desc: '资料横幅：左侧姓名与方向，右侧同心信号环与脉冲核心。',
+  desc: '资料横幅：左侧姓名与方向，右侧一颗发光恒星与三条倾斜轨道，行星沿轨道运行。',
 }
 
 const PROJECTS = [
@@ -91,20 +91,24 @@ const textWidth = (s, size) => {
 const monoWidth = (s, size) => s.length * size * 0.62
 
 const MOTION_CSS = `
-    .halo { transform-box: fill-box; transform-origin: center; animation: halo 3.4s ease-in-out infinite; }
-    .spin { transform-box: fill-box; transform-origin: center; animation: spin 24s linear infinite; }
-    @keyframes halo { 0%, 100% { opacity: .14; transform: scale(1); } 50% { opacity: .36; transform: scale(1.55); } }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @media (prefers-reduced-motion: reduce) { .halo, .spin { animation: none !important; } }`
+    .halo { transform-box: fill-box; transform-origin: center; animation: halo 3.6s ease-in-out infinite; }
+    @keyframes halo { 0%, 100% { opacity: .55; transform: scale(1); } 50% { opacity: .95; transform: scale(1.18); } }
+    @media (prefers-reduced-motion: reduce) { .halo { animation: none !important; } }`
 
 /* ── hero ─────────────────────────────────────────────────────────────── */
-function hero(t, key) {
+function hero(t) {
   const W = 1200, H = 300, CX = 990, CY = 150
-  const node = (deg, r) => {
-    const a = (deg * Math.PI) / 180
-    return [CX + r * Math.cos(a), CY + r * Math.sin(a)]
+
+  /** 一条倾斜轨道 + 沿轨道运行的行星（animateMotion 在 <img> 里也能动）。 */
+  const orbit = (rx, ry, opacity, dash, planetR, dur, fill) => {
+    const d = `M${CX - rx},${CY} a${rx},${ry} 0 1,0 ${rx * 2},0 a${rx},${ry} 0 1,0 ${-rx * 2},0`
+    return `
+    <ellipse cx="${CX}" cy="${CY}" rx="${rx}" ry="${ry}" fill="none" stroke="${t.accent}" stroke-opacity="${opacity}" stroke-width="1.1"${dash ? ` stroke-dasharray="${dash}"` : ''} />
+    <circle r="${planetR}" fill="${fill}">
+      <animateMotion dur="${dur}s" repeatCount="indefinite" path="${d}" />
+    </circle>`
   }
-  const nodes = [150, 30, 270].map((d) => node(d, 96))
+
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
   <title id="t">${esc(HERO.alt)}</title>
   <desc id="d">${esc(HERO.desc)}</desc>
@@ -121,6 +125,16 @@ function hero(t, key) {
       <stop offset="0" stop-color="${t.accent}" stop-opacity="${t.blobAlpha}" />
       <stop offset="1" stop-color="${t.accent}" stop-opacity="0" />
     </radialGradient>
+    <radialGradient id="sunCore">
+      <stop offset="0" stop-color="#FFFFFF" />
+      <stop offset="0.45" stop-color="${t.accentSoft}" />
+      <stop offset="1" stop-color="${t.accent}" />
+    </radialGradient>
+    <radialGradient id="sunGlow">
+      <stop offset="0" stop-color="${t.accent}" stop-opacity="0.45" />
+      <stop offset="0.55" stop-color="${t.accent}" stop-opacity="0.14" />
+      <stop offset="1" stop-color="${t.accent}" stop-opacity="0" />
+    </radialGradient>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="${t.grid}" stroke-width="1" />
     </pattern>
@@ -131,7 +145,7 @@ function hero(t, key) {
   <g clip-path="url(#frame)">
     <rect width="${W}" height="${H}" fill="url(#surface)" />
     <rect width="${W}" height="${H}" fill="url(#grid)" opacity="0.85" />
-    <ellipse cx="${CX}" cy="118" rx="250" ry="200" fill="url(#blob)" />
+    <ellipse cx="${CX}" cy="${CY}" rx="250" ry="200" fill="url(#blob)" />
 
     <text x="64" y="78" font-family="${MONO}" font-size="12" letter-spacing="3.2" fill="${t.accentDeep}">${esc(HERO.kicker)}</text>
     <text x="64" y="146" font-family="${SANS}" font-size="58" font-weight="700" letter-spacing="-0.5" fill="${t.ink}">${esc(HERO.name)}</text>
@@ -139,18 +153,14 @@ function hero(t, key) {
     <text x="64" y="212" font-family="${SANS}" font-size="21" fill="${t.body}">${esc(HERO.tagline)}</text>
     <text x="64" y="248" font-family="${MONO}" font-size="13" fill="${t.meta}">${esc(HERO.meta)}</text>
 
-    <g fill="none" stroke="${t.accent}">
-      <circle cx="${CX}" cy="${CY}" r="52" stroke-width="1.6" opacity="0.5" />
-      <circle cx="${CX}" cy="${CY}" r="96" stroke-width="1.4" opacity="0.3" />
-      <circle cx="${CX}" cy="${CY}" r="140" stroke-width="1.2" opacity="0.15" />
+    <g>
+      <circle class="halo" cx="${CX}" cy="${CY}" r="46" fill="url(#sunGlow)" />
+      <circle cx="${CX}" cy="${CY}" r="19" fill="none" stroke="${t.accent}" stroke-opacity="0.35" stroke-width="1" />
+      <circle cx="${CX}" cy="${CY}" r="12" fill="url(#sunCore)" />
     </g>
-    <circle class="spin" cx="${CX}" cy="${CY}" r="118" fill="none" stroke="${t.accentSoft}"
-            stroke-width="1.6" stroke-dasharray="5 12" stroke-linecap="round" opacity="0.55" />
-    <g fill="${t.accent}">
-      ${nodes.map(([x, y]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5" />`).join('\n      ')}
-    </g>
-    <circle class="halo" cx="${CX}" cy="${CY}" r="20" fill="${t.accent}" />
-    <circle cx="${CX}" cy="${CY}" r="9" fill="url(#accent)" />
+${orbit(78, 32, 0.34, '', 5, 13, t.accentDeep)}
+${orbit(134, 55, 0.20, '4 9', 7, 23, t.accent)}
+${orbit(188, 77, 0.10, '', 4, 37, t.accentSoft)}
   </g>
   <rect x="0.75" y="0.75" width="${W - 1.5}" height="${H - 1.5}" rx="25" fill="none" stroke="${t.cardBorder}" stroke-width="1.5" />
 </svg>
@@ -202,7 +212,7 @@ function project(t, p) {
 mkdirSync(OUT, { recursive: true })
 const written = []
 for (const [key, t] of Object.entries(THEMES)) {
-  written.push([`hero-${key}.svg`, hero(t, key)])
+  written.push([`hero-${key}.svg`, hero(t)])
   for (const p of PROJECTS) written.push([`${p.file}-${key}.svg`, project(t, p)])
 }
 for (const [name, body] of written) {
