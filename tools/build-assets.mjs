@@ -19,9 +19,9 @@ const OUT = join(ROOT, 'assets')
 const SANS = "Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif"
 const MONO = "ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace"
 
-/* 成分表卡的背景图（虚化宽幅），懒加载并缓存 */
-let CARD_BG_B64 = null
-const cardBg = () => (CARD_BG_B64 ??= readFileSync(join(ROOT, 'assets', 'card-photo.jpg')).toString('base64'))
+/* 成分表卡的背景图（虚化宽幅，明暗两版），懒加载并缓存 */
+const CARD_BG = {}
+const cardBg = (key) => (CARD_BG[key] ??= readFileSync(join(ROOT, 'assets', `card-photo-${key}.jpg`)).toString('base64'))
 
 /* ── 配色 ─────────────────────────────────────────────────────────────── */
 const THEMES = {
@@ -32,6 +32,7 @@ const THEMES = {
     accent: '#10B981', accentDeep: '#047857', accentSoft: '#6EE7B7',
     chipBg: '#ECFDF5', chipText: '#047857',
     card: '#FFFFFF', cardBorder: '#D1FAE5',
+    halo: '#FFFFFF',
     track: '#DCF6EA',
     seal: '#C1352B',
     shadow: '#0F172A',
@@ -56,6 +57,7 @@ const THEMES = {
     accent: '#34D399', accentDeep: '#6EE7B7', accentSoft: '#047857',
     chipBg: '#0F2E26', chipText: '#6EE7B7',
     card: '#0B211C', cardBorder: '#14532D',
+    halo: '#071A16',
     track: '#123A2F',
     seal: '#E0685E',
     shadow: '#E6F4EF',
@@ -337,7 +339,7 @@ function project(t, p) {
 }
 
 /* ── 自我介绍卡（成分表 + 闪电阴影 + 居中印章）──────────────────────── */
-function intro(t) {
+function intro(t, key) {
   const W = 900, H = 248
   const p = INTRO
   const cols = [52, 470], rows = [126, 170, 214]
@@ -351,13 +353,15 @@ function intro(t) {
       cells += `<rect x="${x + SEG_X + k * (SEG_W + SEG_GAP)}" y="${y - 6}" width="${SEG_W}" height="12" rx="3.5" fill="${fill}" />`
     }
     return `<g transform="translate(${x} ${y - 11})" fill="none" stroke="${t.accent}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">${ICONS[icon]}</g>
-    <text x="${x + 22}" y="${y}" font-family="${SANS}" font-size="12" fill="${t.ink}">${esc(label)}</text>${cells}
-    <text x="${x + SEG_X + 10 * (SEG_W + SEG_GAP) + 6}" y="${y + 1}" font-family="${MONO}" font-size="10" fill="${t.body}">${n}</text>`
+    <text x="${x + 22}" y="${y}" font-family="${SANS}" font-size="12" fill="${t.ink}" ${halo}>${esc(label)}</text>${cells}
+    <text x="${x + SEG_X + 10 * (SEG_W + SEG_GAP) + 6}" y="${y + 1}" font-family="${MONO}" font-size="10" fill="${t.body}" ${halo}>${n}</text>`
   }).join('\n    ')
 
   const SEAL_FONT = "'SimSun', 'Songti SC', 'STSong', 'Noto Serif CJK SC', serif"
   const stampW = Math.round(p.stamp.length * 22 * 0.92 + 40)
   const stampX = 390, stampY = 172
+  // 文字护罩：背景图清晰度提高后，靠描边保证文字仍然读得清
+  const halo = `stroke="${t.halo}" stroke-width="3.4" stroke-opacity="0.9" paint-order="stroke"`
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
   <title id="t">${esc(p.alt)}</title>
@@ -380,15 +384,15 @@ function intro(t) {
   <g clip-path="url(#card)">
     <rect width="${W}" height="${H}" fill="${t.card}" />
 
-    <image x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="xMidYMid slice" href="data:image/jpeg;base64,${cardBg()}" />
+    <image x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="xMidYMid slice" href="data:image/jpeg;base64,${cardBg(key)}" />
 
     <circle cx="52" cy="50" r="24" fill="url(#ava)" />
     <text x="52" y="59" text-anchor="middle" font-family="${SANS}" font-size="22" font-weight="700" fill="#FFFFFF">j</text>
-    <text x="88" y="42" font-family="${SANS}" font-size="19" font-weight="600" fill="${t.ink}">${esc(p.handle)}</text>
-    <text x="88" y="64" font-family="${SANS}" font-size="12.5" fill="${t.body}">${esc(p.role)}</text>
+    <text x="88" y="42" font-family="${SANS}" font-size="19" font-weight="600" fill="${t.ink}" ${halo}>${esc(p.handle)}</text>
+    <text x="88" y="64" font-family="${SANS}" font-size="12.5" fill="${t.body}" ${halo}>${esc(p.role)}</text>
 
-    <text x="${W - 52}" y="60" text-anchor="end" font-family="${SANS}" font-size="40" font-weight="700" letter-spacing="-1" fill="${t.ink}">${esc(p.score)}</text>
-    <text x="${W - 52}" y="78" text-anchor="end" font-family="${SANS}" font-size="11" fill="${t.body}">${esc(p.scoreUnit)}</text>
+    <text x="${W - 52}" y="60" text-anchor="end" font-family="${SANS}" font-size="40" font-weight="700" letter-spacing="-1" fill="${t.ink}" stroke="${t.halo}" stroke-width="5" stroke-opacity="0.72" paint-order="stroke">${esc(p.score)}</text>
+    <text x="${W - 52}" y="78" text-anchor="end" font-family="${SANS}" font-size="11" fill="${t.body}" ${halo}>${esc(p.scoreUnit)}</text>
 
     <line x1="52" y1="94" x2="${W - 52}" y2="94" stroke="${t.cardBorder}" stroke-width="1" />
 
@@ -397,7 +401,7 @@ function intro(t) {
     <g transform="rotate(-4 ${stampX} ${stampY})" opacity="0.9" filter="url(#ink)">
       <rect x="${stampX - stampW / 2}" y="${stampY - 31}" width="${stampW}" height="62" rx="6" fill="none" stroke="${t.seal}" stroke-width="3.5" />
       <rect x="${stampX - stampW / 2 + 6}" y="${stampY - 25}" width="${stampW - 12}" height="50" rx="3" fill="none" stroke="${t.seal}" stroke-width="1" />
-      <text x="${stampX}" y="${stampY + 8}" text-anchor="middle" font-family="${SEAL_FONT}" font-size="22" font-weight="700" fill="${t.seal}">${esc(p.stamp)}</text>
+      <text x="${stampX}" y="${stampY + 8}" text-anchor="middle" font-family="${SEAL_FONT}" font-size="22" font-weight="700" fill="${t.seal}" stroke="${t.halo}" stroke-width="2.6" stroke-opacity="0.55" paint-order="stroke">${esc(p.stamp)}</text>
     </g>
   </g>
   <rect x="0.75" y="0.75" width="${W - 1.5}" height="${H - 1.5}" rx="15" fill="none" stroke="${t.cardBorder}" stroke-width="1.5" />
@@ -454,7 +458,7 @@ mkdirSync(OUT, { recursive: true })
 const written = []
 for (const [key, t] of Object.entries(THEMES)) {
   written.push([`hero-${key}.svg`, hero(t)])
-  written.push([`intro-card-${key}.svg`, intro(t)])
+  written.push([`intro-card-${key}.svg`, intro(t, key)])
   for (const p of PROJECTS) written.push([`${p.file}-${key}.svg`, project(t, p)])
 }
 for (const [name, body] of written) {
