@@ -109,13 +109,14 @@ const INTRO = {
   role: 'Agent 玩家 · 后端开发',
   score: '8.5',
   scoreUnit: '/ 10 · 自评',
-  seal: '姜爷忠实拥趸',
+  stamp: '成分表：姜爷拥趸',
+  egg: '1-16',
   metrics: [
     ['后端开发', 8], ['Agent', 7],
     ['和美女聊天', 10], ['健身', 2],
     ['摸鱼', 6], ['早睡', 1],
   ],
-  alt: 'j11andme 的成分表卡片：后端开发 8 格、Agent 7 格、和美女聊天 10 格、健身 2 格、摸鱼 6 格、早睡 1 格，盖有「姜爷忠实拥趸」印章',
+  alt: 'j11andme 的成分表卡片：后端开发 8 格、Agent 7 格、和美女聊天 10 格、健身 2 格、摸鱼 6 格、早睡 1 格，盖有「成分表：姜爷拥趸」印章',
 }
 
 /* ── 工具 ─────────────────────────────────────────────────────────────── */
@@ -270,62 +271,67 @@ function project(t, p) {
 `
 }
 
-/* ── 自我介绍卡（成分表 + 印章）───────────────────────────────────────── */
+/* ── 自我介绍卡（成分表 + 人像水印 + 印章）──────────────────────────── */
 function intro(t) {
-  const W = 900, H = 300
+  const W = 640, H = 440
   const p = INTRO
-  const cols = [290, 580], rows = [172, 214, 256]
+  const cols = [52, 336], rows = [170, 212, 254]
 
   const bars = p.metrics.map(([label, n], i) => {
     const x = cols[i % 2], y = rows[Math.floor(i / 2)]
     let cells = ''
     for (let k = 0; k < 10; k++) {
-      cells += `<rect x="${x + 112 + k * 16}" y="${y - 12}" width="12" height="12" rx="3" fill="${k < n ? t.accent : t.track}" />`
+      cells += `<rect x="${x + 92 + k * 16}" y="${y - 12}" width="12" height="12" rx="3" fill="${k < n ? t.accent : t.track}" />`
     }
-    return `<text x="${x}" y="${y}" font-family="${SANS}" font-size="12.5" fill="${t.body}">${esc(label)}</text>${cells}`
+    return `<text x="${x}" y="${y}" font-family="${SANS}" font-size="12" fill="${t.body}">${esc(label)}</text>${cells}`
   }).join('\n    ')
 
-  // 印章：六字排成两行三列，宋体 + 油墨扩散滤镜，像真盖上去的
+  // 印章：单行长条橡皮章，宋体 + 油墨扩散滤镜
   const SEAL_FONT = "'SimSun', 'Songti SC', 'STSong', 'Noto Serif CJK SC', serif"
-  const chars = [...p.seal]
-  const cellX = [762.7, 800, 837.3], cellY = [64, 120]
-  const sealText = chars.map((ch, i) =>
-    `<text x="${cellX[i % 3]}" y="${cellY[Math.floor(i / 3)]}" text-anchor="middle" font-family="${SEAL_FONT}" font-size="25" font-weight="700" fill="${t.seal}">${esc(ch)}</text>`).join('\n      ')
+  const stampW = Math.round(p.stamp.length * 22 * 0.92 + 40)
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
   <title id="t">${esc(p.alt)}</title>
-  <desc id="d">自我介绍卡片：${esc(p.handle)}，${esc(p.role)}，含六项自评条与一枚印章。</desc>
+  <desc id="d">自我介绍卡片：${esc(p.handle)}，${esc(p.role)}，含六项自评条、背景人像剪影与一枚印章。</desc>
   <defs>
     <linearGradient id="ava" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="${t.accentSoft}" />
       <stop offset="1" stop-color="${t.accentDeep}" />
     </linearGradient>
-    <filter id="ink" x="-12%" y="-12%" width="124%" height="124%">
+    <filter id="ink" x="-14%" y="-22%" width="128%" height="144%">
       <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="3" seed="7" result="noise" />
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.4" xChannelSelector="R" yChannelSelector="G" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" xChannelSelector="R" yChannelSelector="G" />
     </filter>
     <clipPath id="card"><rect width="${W}" height="${H}" rx="16" /></clipPath>
   </defs>
   <g clip-path="url(#card)">
     <rect width="${W}" height="${H}" fill="${t.card}" />
 
-    <circle cx="68" cy="72" r="30" fill="url(#ava)" />
-    <text x="68" y="83" text-anchor="middle" font-family="${SANS}" font-size="28" font-weight="700" fill="#FFFFFF">j</text>
-    <text x="112" y="64" font-family="${SANS}" font-size="21" font-weight="600" fill="${t.ink}">${esc(p.handle)}</text>
-    <text x="112" y="88" font-family="${SANS}" font-size="13" fill="${t.meta}">${esc(p.role)}</text>
+    <g opacity="0.05" fill="${t.accentDeep}" transform="translate(500 272) scale(1.45)">
+      <path d="M-78,132 C-70,84 -40,68 0,68 C40,68 70,84 78,132 Z" />
+      <circle cx="0" cy="30" r="35" />
+      <path d="M-40,24 C-38,-12 -18,-28 4,-28 C28,-28 42,-8 42,20 C32,2 16,-4 2,0 C-14,4 -30,12 -40,24 Z" />
+    </g>
 
-    <line x1="64" y1="122" x2="${W - 64}" y2="122" stroke="${t.cardBorder}" stroke-width="1" />
+    <circle cx="56" cy="64" r="26" fill="url(#ava)" />
+    <text x="56" y="73" text-anchor="middle" font-family="${SANS}" font-size="24" font-weight="700" fill="#FFFFFF">j</text>
+    <text x="96" y="56" font-family="${SANS}" font-size="19" font-weight="600" fill="${t.ink}">${esc(p.handle)}</text>
+    <text x="96" y="79" font-family="${SANS}" font-size="12.5" fill="${t.meta}">${esc(p.role)}</text>
 
-    <text x="64" y="206" font-family="${SANS}" font-size="54" font-weight="700" letter-spacing="-1" fill="${t.ink}">${esc(p.score)}</text>
-    <text x="168" y="206" font-family="${SANS}" font-size="13" fill="${t.meta}">${esc(p.scoreUnit)}</text>
+    <text x="${W - 56}" y="74" text-anchor="end" font-family="${SANS}" font-size="42" font-weight="700" letter-spacing="-1" fill="${t.ink}">${esc(p.score)}</text>
+    <text x="${W - 56}" y="92" text-anchor="end" font-family="${SANS}" font-size="11" fill="${t.meta}">${esc(p.scoreUnit)}</text>
+
+    <line x1="52" y1="112" x2="${W - 52}" y2="112" stroke="${t.cardBorder}" stroke-width="1" />
 
     ${bars}
 
-    <g transform="rotate(-8 800 84)" opacity="0.88" filter="url(#ink)">
-      <rect x="744" y="28" width="112" height="112" rx="12" fill="none" stroke="${t.seal}" stroke-width="4" />
-      <rect x="752" y="36" width="96" height="96" rx="7" fill="none" stroke="${t.seal}" stroke-width="1.2" />
-      ${sealText}
+    <g transform="rotate(-6 320 372)" opacity="0.88" filter="url(#ink)">
+      <rect x="${320 - stampW / 2}" y="341" width="${stampW}" height="62" rx="6" fill="none" stroke="${t.seal}" stroke-width="3.5" />
+      <rect x="${320 - stampW / 2 + 6}" y="347" width="${stampW - 12}" height="50" rx="3" fill="none" stroke="${t.seal}" stroke-width="1" />
+      <text x="320" y="383" text-anchor="middle" font-family="${SEAL_FONT}" font-size="22" font-weight="700" fill="${t.seal}">${esc(p.stamp)}</text>
     </g>
+
+    <text x="${W - 24}" y="${H - 14}" text-anchor="end" font-family="${MONO}" font-size="9" fill="${t.meta}" opacity="0.55">${esc(p.egg)}</text>
   </g>
   <rect x="0.75" y="0.75" width="${W - 1.5}" height="${H - 1.5}" rx="15" fill="none" stroke="${t.cardBorder}" stroke-width="1.5" />
 </svg>
