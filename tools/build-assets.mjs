@@ -42,7 +42,7 @@ const THEMES = {
 
 /* ── 文案 ─────────────────────────────────────────────────────────────── */
 const HERO = {
-  kicker: '// PROFILE',
+  kicker: '你好，我是',
   name: 'j11andme',
   tagline: 'Agent 应用工程 · 内容工作流 · 计算机视觉',
   meta: 'Java · Python · PyTorch · Vue · Docker',

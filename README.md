@@ -28,9 +28,7 @@
 
 </div>
 
-<hr />
-
-### `// SELECTED_WORK` · 精选项目
+## 精选项目 <sub>Selected Work</sub>
 
 <div align="center">
 
@@ -43,8 +41,6 @@
 </a>
 
 <p>
-  <code>Java 21</code> <code>Spring AI</code> <code>Vue 3</code>
-  &nbsp;·&nbsp;
   <a href="https://github.com/j11andme/pulseink">Repository</a>
   &nbsp;·&nbsp;
   <a href="https://github.com/j11andme/pulseink/releases">Releases</a>
@@ -61,20 +57,16 @@
 </a>
 
 <p>
-  <code>PyTorch</code> <code>MMDetection</code> <code>YOLO11s</code>
-  &nbsp;·&nbsp;
   <a href="https://github.com/j11andme/FDA-Net">Repository</a>
   &nbsp;·&nbsp;
-  <a href="https://github.com/j11andme/FDA-Net#setup">Paper code</a>
+  <a href="https://github.com/j11andme/FDA-Net#setup">论文配套代码</a>
   &nbsp;
   <a href="https://github.com/j11andme/FDA-Net/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/j11andme/FDA-Net?style=flat-square&label=%E2%98%85&labelColor=047857&color=10B981" /></a>
 </p>
 
 </div>
 
-<hr />
-
-### `// ACTIVITY` · 贡献信号
+## 贡献信号 <sub>Activity</sub>
 
 <div align="center">
 

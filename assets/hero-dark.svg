@@ -31,7 +31,7 @@
     <rect width="1200" height="300" fill="url(#grid)" opacity="0.85" />
     <ellipse cx="990" cy="118" rx="250" ry="200" fill="url(#blob)" />
 
-    <text x="64" y="78" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="12" letter-spacing="3.2" fill="#6EE7B7">// PROFILE</text>
+    <text x="64" y="78" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="12" letter-spacing="3.2" fill="#6EE7B7">你好，我是</text>
     <text x="64" y="146" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="58" font-weight="700" letter-spacing="-0.5" fill="#EAF7F2">j11andme</text>
     <rect x="66" y="166" width="56" height="4" rx="2" fill="url(#accent)" />
     <text x="64" y="212" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="21" fill="#B9D6CC">Agent 应用工程 · 内容工作流 · 计算机视觉</text>

@@ -3,3 +3,9 @@ preview/
 
 # 本机工作笔记（含本机路径与代理配置）
 SETUP.md
+
+# 便携版 gh 及其配置（含登录凭据，绝对不要提交）
+.local/
+
+# �����߹��������õ� workflow scope ֮ǰ�����ڱ��أ�����Զ��
+.github/workflows/snake.yml
