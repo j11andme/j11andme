@@ -333,9 +333,9 @@ function project(t, p) {
 
 /* ── 自我介绍卡（成分表 + 闪电阴影 + 居中印章）──────────────────────── */
 function intro(t) {
-  const W = 900, H = 296
+  const W = 900, H = 260
   const p = INTRO
-  const cols = [52, 470], rows = [160, 204, 248]
+  const cols = [52, 470], rows = [126, 170, 214]
   const SEG_W = 20, SEG_GAP = 4, SEG_X = 112
 
   const bars = p.metrics.map(([icon, label, n], i) => {
@@ -352,7 +352,7 @@ function intro(t) {
 
   const SEAL_FONT = "'SimSun', 'Songti SC', 'STSong', 'Noto Serif CJK SC', serif"
   const stampW = Math.round(p.stamp.length * 22 * 0.92 + 40)
-  const stampX = 390, stampY = 250
+  const stampX = 390, stampY = 204
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
   <title id="t">${esc(p.alt)}</title>
@@ -388,15 +388,15 @@ function intro(t) {
 
     <line x1="52" y1="94" x2="${W - 52}" y2="94" stroke="${t.cardBorder}" stroke-width="1" />
 
+    ${bars}
+
     <g transform="rotate(-4 ${stampX} ${stampY})" opacity="0.9" filter="url(#ink)">
       <rect x="${stampX - stampW / 2}" y="${stampY - 31}" width="${stampW}" height="62" rx="6" fill="none" stroke="${t.seal}" stroke-width="3.5" />
       <rect x="${stampX - stampW / 2 + 6}" y="${stampY - 25}" width="${stampW - 12}" height="50" rx="3" fill="none" stroke="${t.seal}" stroke-width="1" />
       <text x="${stampX}" y="${stampY + 8}" text-anchor="middle" font-family="${SEAL_FONT}" font-size="22" font-weight="700" fill="${t.seal}">${esc(p.stamp)}</text>
     </g>
 
-    ${bars}
-
-    <text x="${W - 24}" y="${H - 14}" text-anchor="end" font-family="${MONO}" font-size="9" fill="${t.meta}" opacity="0.55">${esc(p.egg)}</text>
+    <text x="${W - 24}" y="${H - 12}" text-anchor="end" font-family="${MONO}" font-size="9" fill="${t.meta}" opacity="0.55">${esc(p.egg)}</text>
   </g>
   <rect x="0.75" y="0.75" width="${W - 1.5}" height="${H - 1.5}" rx="15" fill="none" stroke="${t.cardBorder}" stroke-width="1.5" />
 </svg>
