@@ -20,41 +20,84 @@
     </pattern>
     <clipPath id="frame"><rect width="1200" height="300" rx="26" /></clipPath>
     <radialGradient id="m0">
-      <stop offset="0" stop-color="#10B981" stop-opacity="0.3" />
-      <stop offset="0.55" stop-color="#10B981" stop-opacity="0.135" />
+      <stop offset="0" stop-color="#10B981" stop-opacity="0.34" />
+      <stop offset="0.55" stop-color="#10B981" stop-opacity="0.153" />
       <stop offset="1" stop-color="#10B981" stop-opacity="0" />
     </radialGradient>
     <radialGradient id="m1">
-      <stop offset="0" stop-color="#047857" stop-opacity="0.42" />
-      <stop offset="0.55" stop-color="#047857" stop-opacity="0.189" />
+      <stop offset="0" stop-color="#047857" stop-opacity="0.5" />
+      <stop offset="0.55" stop-color="#047857" stop-opacity="0.225" />
       <stop offset="1" stop-color="#047857" stop-opacity="0" />
     </radialGradient>
     <radialGradient id="m2">
-      <stop offset="0" stop-color="#0D9488" stop-opacity="0.26" />
-      <stop offset="0.55" stop-color="#0D9488" stop-opacity="0.117" />
+      <stop offset="0" stop-color="#0D9488" stop-opacity="0.3" />
+      <stop offset="0.55" stop-color="#0D9488" stop-opacity="0.135" />
       <stop offset="1" stop-color="#0D9488" stop-opacity="0" />
     </radialGradient>
     <radialGradient id="m3">
-      <stop offset="0" stop-color="#064E3B" stop-opacity="0.55" />
-      <stop offset="0.55" stop-color="#064E3B" stop-opacity="0.248" />
-      <stop offset="1" stop-color="#064E3B" stop-opacity="0" />
+      <stop offset="0" stop-color="#065F46" stop-opacity="0.62" />
+      <stop offset="0.55" stop-color="#065F46" stop-opacity="0.279" />
+      <stop offset="1" stop-color="#065F46" stop-opacity="0" />
     </radialGradient>
+    <linearGradient id="beam0" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#10B981" stop-opacity="0" />
+      <stop offset="0.5" stop-color="#10B981" stop-opacity="0.3" />
+      <stop offset="1" stop-color="#10B981" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="beam1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0D9488" stop-opacity="0" />
+      <stop offset="0.5" stop-color="#0D9488" stop-opacity="0.24" />
+      <stop offset="1" stop-color="#0D9488" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="beam2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#34D399" stop-opacity="0" />
+      <stop offset="0.5" stop-color="#34D399" stop-opacity="0.16" />
+      <stop offset="1" stop-color="#34D399" stop-opacity="0" />
+    </linearGradient>
   </defs>
   <style>
     .drift { animation: drift 34s ease-in-out infinite alternate; }
     .drift-b { animation-duration: 46s; animation-direction: alternate-reverse; }
     .drift-c { animation-duration: 58s; }
-    @keyframes drift { from { transform: translate(0px, 0px); } to { transform: translate(-26px, 18px); } }
-    @media (prefers-reduced-motion: reduce) { .drift { animation: none !important; } }
+    @keyframes drift { from { transform: translate(0px, 0px); } to { transform: translate(-28px, 20px); } }
+    .beam { animation: sway 40s ease-in-out infinite alternate; }
+    .beam-b { animation-duration: 54s; animation-direction: alternate-reverse; }
+    .beam-c { animation-duration: 66s; }
+    @keyframes sway { from { transform: translateX(-34px); } to { transform: translateX(38px); } }
+    .pt { animation-name: rise; animation-timing-function: linear; animation-iteration-count: infinite; }
+    @keyframes rise {
+      0% { transform: translateY(18px); opacity: 0; }
+      22% { opacity: .8; }
+      72% { opacity: .45; }
+      100% { transform: translateY(-48px); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { .drift, .beam, .pt { animation: none !important; } }
   </style>
   <g clip-path="url(#frame)">
     <rect width="1200" height="300" fill="url(#surface)" />
-    <ellipse class="drift" cx="1020" cy="10" rx="380" ry="260" fill="url(#m0)" />
-    <ellipse class="drift drift-b" cx="1190" cy="250" rx="320" ry="220" fill="url(#m1)" />
-    <ellipse class="drift drift-c" cx="690" cy="285" rx="340" ry="210" fill="url(#m2)" />
-    <ellipse class="drift" cx="880" cy="100" rx="280" ry="190" fill="url(#m3)" />
-    <rect width="1200" height="300" fill="url(#grid)" opacity="0.5" />
+    <ellipse class="drift" cx="1030" cy="0" rx="400" ry="280" fill="url(#m0)" />
+    <ellipse class="drift drift-b" cx="1190" cy="250" rx="340" ry="240" fill="url(#m1)" />
+    <ellipse class="drift drift-c" cx="660" cy="300" rx="360" ry="230" fill="url(#m2)" />
+    <ellipse class="drift" cx="880" cy="90" rx="300" ry="210" fill="url(#m3)" />
+    <g transform="rotate(-17 950 40)"><g class="beam"><rect x="430" y="-25" width="1040" height="130" fill="url(#beam0)" /></g></g>
+    <g transform="rotate(-13 1080 250)"><g class="beam beam-b"><rect x="620" y="195" width="920" height="110" fill="url(#beam1)" /></g></g>
+    <g transform="rotate(-20 820 150)"><g class="beam beam-c"><rect x="390" y="105" width="860" height="90" fill="url(#beam2)" /></g></g>
+    <rect width="1200" height="300" fill="url(#grid)" opacity="0.45" />
     <rect width="1200" height="300" fill="url(#fade)" />
+    <circle class="pt" cx="672" cy="214" r="2.6" fill="#34D399" opacity="0.55" style="animation-duration:17s;animation-delay:0s" />
+    <circle class="pt" cx="716" cy="96" r="1.8" fill="#34D399" opacity="0.42" style="animation-duration:21s;animation-delay:3.5s" />
+    <circle class="pt" cx="758" cy="258" r="2.2" fill="#34D399" opacity="0.5" style="animation-duration:15s;animation-delay:7s" />
+    <circle class="pt" cx="802" cy="148" r="1.6" fill="#34D399" opacity="0.36" style="animation-duration:23s;animation-delay:1.5s" />
+    <circle class="pt" cx="846" cy="62" r="2.8" fill="#34D399" opacity="0.58" style="animation-duration:19s;animation-delay:9s" />
+    <circle class="pt" cx="890" cy="232" r="1.9" fill="#34D399" opacity="0.4" style="animation-duration:16s;animation-delay:5s" />
+    <circle class="pt" cx="934" cy="118" r="2.4" fill="#34D399" opacity="0.5" style="animation-duration:22s;animation-delay:11s" />
+    <circle class="pt" cx="978" cy="268" r="1.7" fill="#34D399" opacity="0.34" style="animation-duration:18s;animation-delay:2.5s" />
+    <circle class="pt" cx="1022" cy="74" r="2.1" fill="#34D399" opacity="0.46" style="animation-duration:20s;animation-delay:8s" />
+    <circle class="pt" cx="1066" cy="196" r="1.5" fill="#34D399" opacity="0.32" style="animation-duration:24s;animation-delay:13s" />
+    <circle class="pt" cx="1110" cy="128" r="2.6" fill="#34D399" opacity="0.52" style="animation-duration:17s;animation-delay:4.5s" />
+    <circle class="pt" cx="1152" cy="246" r="1.8" fill="#34D399" opacity="0.38" style="animation-duration:21s;animation-delay:6.5s" />
+    <circle class="pt" cx="900" cy="30" r="1.4" fill="#34D399" opacity="0.3" style="animation-duration:25s;animation-delay:12s" />
+    <circle class="pt" cx="1160" cy="58" r="2" fill="#34D399" opacity="0.44" style="animation-duration:19s;animation-delay:10s" />
 
     <text x="64" y="78" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="12" letter-spacing="3.2" fill="#6EE7B7">你好，我是</text>
     <text x="64" y="146" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="58" font-weight="700" letter-spacing="-0.5" fill="#EAF7F2">j11andme</text>

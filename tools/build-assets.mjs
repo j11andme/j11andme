@@ -27,12 +27,20 @@ const THEMES = {
     accent: '#10B981', accentDeep: '#047857', accentSoft: '#6EE7B7',
     chipBg: '#ECFDF5', chipText: '#047857',
     card: '#FFFFFF', cardBorder: '#D1FAE5',
+    track: '#DCF6EA',
+    seal: '#C1352B',
     // [颜色, 不透明度, cx, cy, rx, ry]
     mesh: [
-      ['#6EE7B7', 0.55, 1020, 10, 380, 260],
-      ['#34D399', 0.40, 1190, 250, 320, 220],
-      ['#2DD4BF', 0.28, 690, 285, 340, 210],
-      ['#A7F3D0', 0.50, 880, 100, 280, 190],
+      ['#6EE7B7', 0.72, 1030, 0, 400, 280],
+      ['#34D399', 0.55, 1190, 250, 340, 240],
+      ['#2DD4BF', 0.42, 660, 300, 360, 230],
+      ['#A7F3D0', 0.68, 880, 90, 300, 210],
+    ],
+    // 极光光束：[颜色, 不透明度, cx, cy, 宽, 高, 旋转角]
+    beams: [
+      ['#6EE7B7', 0.60, 950, 40, 1040, 130, -17],
+      ['#2DD4BF', 0.40, 1080, 250, 920, 110, -13],
+      ['#A7F3D0', 0.55, 820, 150, 860, 90, -20],
     ],
   },
   dark: {
@@ -42,11 +50,18 @@ const THEMES = {
     accent: '#34D399', accentDeep: '#6EE7B7', accentSoft: '#047857',
     chipBg: '#0F2E26', chipText: '#6EE7B7',
     card: '#0B211C', cardBorder: '#14532D',
+    track: '#123A2F',
+    seal: '#E0685E',
     mesh: [
-      ['#10B981', 0.30, 1020, 10, 380, 260],
-      ['#047857', 0.42, 1190, 250, 320, 220],
-      ['#0D9488', 0.26, 690, 285, 340, 210],
-      ['#064E3B', 0.55, 880, 100, 280, 190],
+      ['#10B981', 0.34, 1030, 0, 400, 280],
+      ['#047857', 0.50, 1190, 250, 340, 240],
+      ['#0D9488', 0.30, 660, 300, 360, 230],
+      ['#065F46', 0.62, 880, 90, 300, 210],
+    ],
+    beams: [
+      ['#10B981', 0.30, 950, 40, 1040, 130, -17],
+      ['#0D9488', 0.24, 1080, 250, 920, 110, -13],
+      ['#34D399', 0.16, 820, 150, 860, 90, -20],
     ],
   },
 }
@@ -88,6 +103,23 @@ const PROJECTS = [
   },
 ]
 
+/* 自我介绍卡：内容为虚构的戏谑版，不含真实个人信息 */
+const INTRO = {
+  handle: '@j11andme',
+  role: 'Java Agent 玩家 · 后端开发',
+  score: '8.5',
+  scoreUnit: '/ 10 · 自评',
+  scoreNote: '※ 自评数据，未经第三方审计',
+  seal: '人间后端',
+  footer: '印章仅代表本人当下心情，不代表任何组织的认证。',
+  metrics: [
+    ['后端开发', 8], ['Java Agent', 7],
+    ['和美女聊天', 10], ['写文档', 2],
+    ['摸鱼', 6], ['早睡', 1],
+  ],
+  alt: 'j11andme 的成分表卡片：后端开发 8 格、Java Agent 7 格、和美女聊天 10 格、写文档 2 格、摸鱼 6 格、早睡 1 格，右下角盖有「人间后端」印章',
+}
+
 /* ── 工具 ─────────────────────────────────────────────────────────────── */
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
@@ -105,8 +137,19 @@ const MOTION_CSS = `
     .drift { animation: drift 34s ease-in-out infinite alternate; }
     .drift-b { animation-duration: 46s; animation-direction: alternate-reverse; }
     .drift-c { animation-duration: 58s; }
-    @keyframes drift { from { transform: translate(0px, 0px); } to { transform: translate(-26px, 18px); } }
-    @media (prefers-reduced-motion: reduce) { .drift { animation: none !important; } }`
+    @keyframes drift { from { transform: translate(0px, 0px); } to { transform: translate(-28px, 20px); } }
+    .beam { animation: sway 40s ease-in-out infinite alternate; }
+    .beam-b { animation-duration: 54s; animation-direction: alternate-reverse; }
+    .beam-c { animation-duration: 66s; }
+    @keyframes sway { from { transform: translateX(-34px); } to { transform: translateX(38px); } }
+    .pt { animation-name: rise; animation-timing-function: linear; animation-iteration-count: infinite; }
+    @keyframes rise {
+      0% { transform: translateY(18px); opacity: 0; }
+      22% { opacity: .8; }
+      72% { opacity: .45; }
+      100% { transform: translateY(-48px); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { .drift, .beam, .pt { animation: none !important; } }`
 
 /* ── hero：柔光色团背景（mesh gradient）+ 左侧文字 ────────────────────── */
 function hero(t) {
@@ -123,6 +166,27 @@ function hero(t) {
 
   const shapes = mesh.map(([, , cx, cy, rx, ry], i) =>
     `<ellipse class="drift${i === 1 ? ' drift-b' : i === 2 ? ' drift-c' : ''}" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#m${i})" />`).join('\n    ')
+
+  // 极光光束：左端透明 → 中间最亮 → 右端透明，整条斜着扫过
+  const beamGrads = t.beams.map(([color, alpha], i) => `
+    <linearGradient id="beam${i}" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="${color}" stop-opacity="0" />
+      <stop offset="0.5" stop-color="${color}" stop-opacity="${alpha}" />
+      <stop offset="1" stop-color="${color}" stop-opacity="0" />
+    </linearGradient>`).join('')
+  const beams = t.beams.map(([, , cx, cy, w, h, rot], i) =>
+    `<g transform="rotate(${rot} ${cx} ${cy})"><g class="beam${i === 1 ? ' beam-b' : i === 2 ? ' beam-c' : ''}"><rect x="${cx - w / 2}" y="${cy - h / 2}" width="${w}" height="${h}" fill="url(#beam${i})" /></g></g>`).join('\n    ')
+
+  // 漂浮微粒：只在右半区，避免干扰左侧文字
+  const DOTS = [
+    [672, 214, 2.6, 0.55, 17, 0], [716, 96, 1.8, 0.42, 21, 3.5], [758, 258, 2.2, 0.5, 15, 7],
+    [802, 148, 1.6, 0.36, 23, 1.5], [846, 62, 2.8, 0.58, 19, 9], [890, 232, 1.9, 0.4, 16, 5],
+    [934, 118, 2.4, 0.5, 22, 11], [978, 268, 1.7, 0.34, 18, 2.5], [1022, 74, 2.1, 0.46, 20, 8],
+    [1066, 196, 1.5, 0.32, 24, 13], [1110, 128, 2.6, 0.52, 17, 4.5], [1152, 246, 1.8, 0.38, 21, 6.5],
+    [900, 30, 1.4, 0.3, 25, 12], [1160, 58, 2.0, 0.44, 19, 10],
+  ]
+  const dots = DOTS.map(([x, y, r, o, dur, delay]) =>
+    `<circle class="pt" cx="${x}" cy="${y}" r="${r}" fill="${t.accent}" opacity="${o}" style="animation-duration:${dur}s;animation-delay:${delay}s" />`).join('\n    ')
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
   <title id="t">${esc(HERO.alt)}</title>
@@ -144,15 +208,17 @@ function hero(t) {
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="${t.grid}" stroke-width="1" />
     </pattern>
-    <clipPath id="frame"><rect width="${W}" height="${H}" rx="26" /></clipPath>${blobs}
+    <clipPath id="frame"><rect width="${W}" height="${H}" rx="26" /></clipPath>${blobs}${beamGrads}
   </defs>
   <style>${MOTION_CSS}
   </style>
   <g clip-path="url(#frame)">
     <rect width="${W}" height="${H}" fill="url(#surface)" />
     ${shapes}
-    <rect width="${W}" height="${H}" fill="url(#grid)" opacity="0.5" />
+    ${beams}
+    <rect width="${W}" height="${H}" fill="url(#grid)" opacity="0.45" />
     <rect width="${W}" height="${H}" fill="url(#fade)" />
+    ${dots}
 
     <text x="64" y="78" font-family="${MONO}" font-size="12" letter-spacing="3.2" fill="${t.accentDeep}">${esc(HERO.kicker)}</text>
     <text x="64" y="146" font-family="${SANS}" font-size="58" font-weight="700" letter-spacing="-0.5" fill="${t.ink}">${esc(HERO.name)}</text>
@@ -206,11 +272,74 @@ function project(t, p) {
 `
 }
 
+/* ── 自我介绍卡（成分表 + 印章）───────────────────────────────────────── */
+function intro(t) {
+  const W = 900, H = 340
+  const p = INTRO
+  const cols = [290, 580], rows = [178, 220, 262]
+
+  const bars = p.metrics.map(([label, n], i) => {
+    const x = cols[i % 2], y = rows[Math.floor(i / 2)]
+    let cells = ''
+    for (let k = 0; k < 10; k++) {
+      cells += `<rect x="${x + 112 + k * 16}" y="${y - 12}" width="12" height="12" rx="3" fill="${k < n ? t.accent : t.track}" />`
+    }
+    return `<text x="${x}" y="${y}" font-family="${SANS}" font-size="12.5" fill="${t.body}">${esc(label)}</text>${cells}`
+  }).join('\n    ')
+
+  // 印章：2×2 四字，读序为「右上 → 右下 → 左上 → 左下」
+  const [c0, c1, c2, c3] = [...p.seal]
+  const sealChar = (ch, x, y) =>
+    `<text x="${x}" y="${y}" text-anchor="middle" font-family="${SANS}" font-size="30" font-weight="700" fill="${t.seal}">${esc(ch)}</text>`
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
+  <title id="t">${esc(p.alt)}</title>
+  <desc id="d">自我介绍卡片：${esc(p.handle)}，${esc(p.role)}，含六项自评条与一枚印章。</desc>
+  <defs>
+    <linearGradient id="ava" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="${t.accentSoft}" />
+      <stop offset="1" stop-color="${t.accentDeep}" />
+    </linearGradient>
+    <clipPath id="card"><rect width="${W}" height="${H}" rx="16" /></clipPath>
+  </defs>
+  <g clip-path="url(#card)">
+    <rect width="${W}" height="${H}" fill="${t.card}" />
+
+    <circle cx="68" cy="76" r="30" fill="url(#ava)" />
+    <text x="68" y="87" text-anchor="middle" font-family="${SANS}" font-size="28" font-weight="700" fill="#FFFFFF">j</text>
+    <text x="112" y="68" font-family="${SANS}" font-size="21" font-weight="600" fill="${t.ink}">${esc(p.handle)}</text>
+    <text x="112" y="92" font-family="${SANS}" font-size="13" fill="${t.meta}">${esc(p.role)}</text>
+
+    <line x1="64" y1="126" x2="${W - 64}" y2="126" stroke="${t.cardBorder}" stroke-width="1" />
+
+    <text x="64" y="216" font-family="${SANS}" font-size="54" font-weight="700" letter-spacing="-1" fill="${t.ink}">${esc(p.score)}</text>
+    <text x="168" y="216" font-family="${SANS}" font-size="13" fill="${t.meta}">${esc(p.scoreUnit)}</text>
+    <text x="64" y="244" font-family="${MONO}" font-size="11" fill="${t.meta}">${esc(p.scoreNote)}</text>
+
+    ${bars}
+
+    <g transform="rotate(-9 800 84)" opacity="0.9">
+      <rect x="748" y="32" width="104" height="104" rx="10" fill="none" stroke="${t.seal}" stroke-width="3" />
+      <rect x="757" y="41" width="86" height="86" rx="6" fill="none" stroke="${t.seal}" stroke-width="1" />
+      ${sealChar(c0, 822, 74)}
+      ${sealChar(c1, 822, 118)}
+      ${sealChar(c2, 778, 74)}
+      ${sealChar(c3, 778, 118)}
+    </g>
+
+    <text x="64" y="312" font-family="${MONO}" font-size="11" fill="${t.meta}">${esc(p.footer)}</text>
+  </g>
+  <rect x="0.75" y="0.75" width="${W - 1.5}" height="${H - 1.5}" rx="15" fill="none" stroke="${t.cardBorder}" stroke-width="1.5" />
+</svg>
+`
+}
+
 /* ── 输出 ─────────────────────────────────────────────────────────────── */
 mkdirSync(OUT, { recursive: true })
 const written = []
 for (const [key, t] of Object.entries(THEMES)) {
   written.push([`hero-${key}.svg`, hero(t)])
+  written.push([`intro-card-${key}.svg`, intro(t)])
   for (const p of PROJECTS) written.push([`${p.file}-${key}.svg`, project(t, p)])
 }
 for (const [name, body] of written) {

@@ -7,15 +7,6 @@
 </picture>
 
 <p>
-  <a href="https://www.java.com/"><img alt="Java" src="https://img.shields.io/badge/JAVA-047857?style=for-the-badge&logo=openjdk&logoColor=FFFFFF" /></a>
-  <a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/PYTHON-047857?style=for-the-badge&logo=python&logoColor=FFFFFF" /></a>
-  <a href="https://pytorch.org/"><img alt="PyTorch" src="https://img.shields.io/badge/PYTORCH-047857?style=for-the-badge&logo=pytorch&logoColor=FFFFFF" /></a>
-  <a href="https://spring.io/projects/spring-ai"><img alt="Spring" src="https://img.shields.io/badge/SPRING-047857?style=for-the-badge&logo=springboot&logoColor=FFFFFF" /></a>
-  <a href="https://vuejs.org/"><img alt="Vue" src="https://img.shields.io/badge/VUE-047857?style=for-the-badge&logo=vuedotjs&logoColor=FFFFFF" /></a>
-  <a href="https://www.docker.com/"><img alt="Docker" src="https://img.shields.io/badge/DOCKER-047857?style=for-the-badge&logo=docker&logoColor=FFFFFF" /></a>
-</p>
-
-<p>
   <strong>现在在做：</strong><a href="https://github.com/j11andme/pulseink">PulseInk</a>（Java Agent 工作台）、<a href="https://github.com/j11andme/FDA-Net">FDA-Net</a>（水下目标检测域泛化方法）。
 </p>
 
@@ -25,6 +16,10 @@
   <a href="mailto:3244315894@qq.com">Email</a>
 </p>
 
+</div>
+
+<div align="center">
+<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/intro-card-dark.svg" /><source media="(prefers-color-scheme: light)" srcset="./assets/intro-card-light.svg" /><img src="./assets/intro-card-light.svg" alt="j11andme 的成分表：后端开发 8 格、Java Agent 7 格、和美女聊天 10 格、写文档 2 格、摸鱼 6 格、早睡 1 格，盖有「人间后端」印章" width="100%" /></picture>
 </div>
 
 <hr />
