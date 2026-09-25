@@ -344,6 +344,8 @@ function intro(t, key) {
   const p = INTRO
   const cols = [52, 470], rows = [126, 170, 214]
   const SEG_W = 20, SEG_GAP = 4, SEG_X = 112
+  // 文字护罩：背景图清晰度提高后，靠描边保证文字仍然读得清
+  const halo = `stroke="${t.halo}" stroke-width="3.4" stroke-opacity="0.9" paint-order="stroke"`
 
   const bars = p.metrics.map(([icon, label, n], i) => {
     const x = cols[i % 2], y = rows[Math.floor(i / 2)]
@@ -360,8 +362,6 @@ function intro(t, key) {
   const SEAL_FONT = "'SimSun', 'Songti SC', 'STSong', 'Noto Serif CJK SC', serif"
   const stampW = Math.round(p.stamp.length * 22 * 0.92 + 40)
   const stampX = 390, stampY = 172
-  // 文字护罩：背景图清晰度提高后，靠描边保证文字仍然读得清
-  const halo = `stroke="${t.halo}" stroke-width="3.4" stroke-opacity="0.9" paint-order="stroke"`
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
   <title id="t">${esc(p.alt)}</title>
