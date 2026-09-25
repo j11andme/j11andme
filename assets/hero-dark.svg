@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="t d">
   <title id="t">j11andme — Agent 应用工程、内容工作流与计算机视觉</title>
-  <desc id="d">资料横幅：左侧姓名与方向，右侧一颗发光恒星与三条倾斜轨道，行星沿轨道运行。</desc>
+  <desc id="d">资料横幅：左侧姓名与技术方向，右侧为青绿柔光色团背景，色团缓慢漂移。</desc>
   <defs>
     <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0B211C" />
@@ -10,61 +10,57 @@
       <stop offset="0" stop-color="#047857" />
       <stop offset="1" stop-color="#34D399" />
     </linearGradient>
-    <radialGradient id="blob">
-      <stop offset="0" stop-color="#34D399" stop-opacity="0.22" />
-      <stop offset="1" stop-color="#34D399" stop-opacity="0" />
-    </radialGradient>
-    <radialGradient id="sunCore">
-      <stop offset="0" stop-color="#FFFFFF" />
-      <stop offset="0.45" stop-color="#047857" />
-      <stop offset="1" stop-color="#34D399" />
-    </radialGradient>
-    <radialGradient id="sunGlow">
-      <stop offset="0" stop-color="#34D399" stop-opacity="0.45" />
-      <stop offset="0.55" stop-color="#34D399" stop-opacity="0.14" />
-      <stop offset="1" stop-color="#34D399" stop-opacity="0" />
-    </radialGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#071A16" stop-opacity="0.97" />
+      <stop offset="0.40" stop-color="#071A16" stop-opacity="0.62" />
+      <stop offset="0.74" stop-color="#071A16" stop-opacity="0" />
+    </linearGradient>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="#112E27" stroke-width="1" />
     </pattern>
     <clipPath id="frame"><rect width="1200" height="300" rx="26" /></clipPath>
+    <radialGradient id="m0">
+      <stop offset="0" stop-color="#10B981" stop-opacity="0.3" />
+      <stop offset="0.55" stop-color="#10B981" stop-opacity="0.135" />
+      <stop offset="1" stop-color="#10B981" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="m1">
+      <stop offset="0" stop-color="#047857" stop-opacity="0.42" />
+      <stop offset="0.55" stop-color="#047857" stop-opacity="0.189" />
+      <stop offset="1" stop-color="#047857" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="m2">
+      <stop offset="0" stop-color="#0D9488" stop-opacity="0.26" />
+      <stop offset="0.55" stop-color="#0D9488" stop-opacity="0.117" />
+      <stop offset="1" stop-color="#0D9488" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="m3">
+      <stop offset="0" stop-color="#064E3B" stop-opacity="0.55" />
+      <stop offset="0.55" stop-color="#064E3B" stop-opacity="0.248" />
+      <stop offset="1" stop-color="#064E3B" stop-opacity="0" />
+    </radialGradient>
   </defs>
   <style>
-    .halo { transform-box: fill-box; transform-origin: center; animation: halo 3.6s ease-in-out infinite; }
-    @keyframes halo { 0%, 100% { opacity: .55; transform: scale(1); } 50% { opacity: .95; transform: scale(1.18); } }
-    @media (prefers-reduced-motion: reduce) { .halo { animation: none !important; } }
+    .drift { animation: drift 34s ease-in-out infinite alternate; }
+    .drift-b { animation-duration: 46s; animation-direction: alternate-reverse; }
+    .drift-c { animation-duration: 58s; }
+    @keyframes drift { from { transform: translate(0px, 0px); } to { transform: translate(-26px, 18px); } }
+    @media (prefers-reduced-motion: reduce) { .drift { animation: none !important; } }
   </style>
   <g clip-path="url(#frame)">
     <rect width="1200" height="300" fill="url(#surface)" />
-    <rect width="1200" height="300" fill="url(#grid)" opacity="0.85" />
-    <ellipse cx="990" cy="150" rx="250" ry="200" fill="url(#blob)" />
+    <ellipse class="drift" cx="1020" cy="10" rx="380" ry="260" fill="url(#m0)" />
+    <ellipse class="drift drift-b" cx="1190" cy="250" rx="320" ry="220" fill="url(#m1)" />
+    <ellipse class="drift drift-c" cx="690" cy="285" rx="340" ry="210" fill="url(#m2)" />
+    <ellipse class="drift" cx="880" cy="100" rx="280" ry="190" fill="url(#m3)" />
+    <rect width="1200" height="300" fill="url(#grid)" opacity="0.5" />
+    <rect width="1200" height="300" fill="url(#fade)" />
 
     <text x="64" y="78" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="12" letter-spacing="3.2" fill="#6EE7B7">你好，我是</text>
     <text x="64" y="146" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="58" font-weight="700" letter-spacing="-0.5" fill="#EAF7F2">j11andme</text>
     <rect x="66" y="166" width="56" height="4" rx="2" fill="url(#accent)" />
     <text x="64" y="212" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="21" fill="#B9D6CC">Agent 应用工程 · 内容工作流 · 计算机视觉</text>
     <text x="64" y="248" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#8FB3A9">Java · Python · PyTorch · Vue · Docker</text>
-
-    <g>
-      <circle class="halo" cx="990" cy="150" r="46" fill="url(#sunGlow)" />
-      <circle cx="990" cy="150" r="19" fill="none" stroke="#34D399" stroke-opacity="0.35" stroke-width="1" />
-      <circle cx="990" cy="150" r="12" fill="url(#sunCore)" />
-    </g>
-
-    <ellipse cx="990" cy="150" rx="78" ry="32" fill="none" stroke="#34D399" stroke-opacity="0.34" stroke-width="1.1" />
-    <circle r="5" fill="#6EE7B7">
-      <animateMotion dur="13s" repeatCount="indefinite" path="M912,150 a78,32 0 1,0 156,0 a78,32 0 1,0 -156,0" />
-    </circle>
-
-    <ellipse cx="990" cy="150" rx="134" ry="55" fill="none" stroke="#34D399" stroke-opacity="0.2" stroke-width="1.1" stroke-dasharray="4 9" />
-    <circle r="7" fill="#34D399">
-      <animateMotion dur="23s" repeatCount="indefinite" path="M856,150 a134,55 0 1,0 268,0 a134,55 0 1,0 -268,0" />
-    </circle>
-
-    <ellipse cx="990" cy="150" rx="188" ry="77" fill="none" stroke="#34D399" stroke-opacity="0.1" stroke-width="1.1" />
-    <circle r="4" fill="#047857">
-      <animateMotion dur="37s" repeatCount="indefinite" path="M802,150 a188,77 0 1,0 376,0 a188,77 0 1,0 -376,0" />
-    </circle>
   </g>
   <rect x="0.75" y="0.75" width="1198.5" height="298.5" rx="25" fill="none" stroke="#14532D" stroke-width="1.5" />
 </svg>

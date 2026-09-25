@@ -27,7 +27,13 @@ const THEMES = {
     accent: '#10B981', accentDeep: '#047857', accentSoft: '#6EE7B7',
     chipBg: '#ECFDF5', chipText: '#047857',
     card: '#FFFFFF', cardBorder: '#D1FAE5',
-    blobAlpha: '0.30',
+    // [颜色, 不透明度, cx, cy, rx, ry]
+    mesh: [
+      ['#6EE7B7', 0.55, 1020, 10, 380, 260],
+      ['#34D399', 0.40, 1190, 250, 320, 220],
+      ['#2DD4BF', 0.28, 690, 285, 340, 210],
+      ['#A7F3D0', 0.50, 880, 100, 280, 190],
+    ],
   },
   dark: {
     surface1: '#0B211C', surface2: '#071A16',
@@ -36,7 +42,12 @@ const THEMES = {
     accent: '#34D399', accentDeep: '#6EE7B7', accentSoft: '#047857',
     chipBg: '#0F2E26', chipText: '#6EE7B7',
     card: '#0B211C', cardBorder: '#14532D',
-    blobAlpha: '0.22',
+    mesh: [
+      ['#10B981', 0.30, 1020, 10, 380, 260],
+      ['#047857', 0.42, 1190, 250, 320, 220],
+      ['#0D9488', 0.26, 690, 285, 340, 210],
+      ['#064E3B', 0.55, 880, 100, 280, 190],
+    ],
   },
 }
 
@@ -47,7 +58,7 @@ const HERO = {
   tagline: 'Agent 应用工程 · 内容工作流 · 计算机视觉',
   meta: 'Java · Python · PyTorch · Vue · Docker',
   alt: 'j11andme — Agent 应用工程、内容工作流与计算机视觉',
-  desc: '资料横幅：左侧姓名与方向，右侧一颗发光恒星与三条倾斜轨道，行星沿轨道运行。',
+  desc: '资料横幅：左侧姓名与技术方向，右侧为青绿柔光色团背景，色团缓慢漂移。',
 }
 
 const PROJECTS = [
@@ -91,23 +102,27 @@ const textWidth = (s, size) => {
 const monoWidth = (s, size) => s.length * size * 0.62
 
 const MOTION_CSS = `
-    .halo { transform-box: fill-box; transform-origin: center; animation: halo 3.6s ease-in-out infinite; }
-    @keyframes halo { 0%, 100% { opacity: .55; transform: scale(1); } 50% { opacity: .95; transform: scale(1.18); } }
-    @media (prefers-reduced-motion: reduce) { .halo { animation: none !important; } }`
+    .drift { animation: drift 34s ease-in-out infinite alternate; }
+    .drift-b { animation-duration: 46s; animation-direction: alternate-reverse; }
+    .drift-c { animation-duration: 58s; }
+    @keyframes drift { from { transform: translate(0px, 0px); } to { transform: translate(-26px, 18px); } }
+    @media (prefers-reduced-motion: reduce) { .drift { animation: none !important; } }`
 
-/* ── hero ─────────────────────────────────────────────────────────────── */
+/* ── hero：柔光色团背景（mesh gradient）+ 左侧文字 ────────────────────── */
 function hero(t) {
-  const W = 1200, H = 300, CX = 990, CY = 150
+  const W = 1200, H = 300
 
-  /** 一条倾斜轨道 + 沿轨道运行的行星（animateMotion 在 <img> 里也能动）。 */
-  const orbit = (rx, ry, opacity, dash, planetR, dur, fill) => {
-    const d = `M${CX - rx},${CY} a${rx},${ry} 0 1,0 ${rx * 2},0 a${rx},${ry} 0 1,0 ${-rx * 2},0`
-    return `
-    <ellipse cx="${CX}" cy="${CY}" rx="${rx}" ry="${ry}" fill="none" stroke="${t.accent}" stroke-opacity="${opacity}" stroke-width="1.1"${dash ? ` stroke-dasharray="${dash}"` : ''} />
-    <circle r="${planetR}" fill="${fill}">
-      <animateMotion dur="${dur}s" repeatCount="indefinite" path="${d}" />
-    </circle>`
-  }
+  // 色团：[颜色, 不透明度, cx, cy, rx, ry]
+  const mesh = t.mesh
+  const blobs = mesh.map(([color, alpha, cx, cy, rx, ry], i) => `
+    <radialGradient id="m${i}">
+      <stop offset="0" stop-color="${color}" stop-opacity="${alpha}" />
+      <stop offset="0.55" stop-color="${color}" stop-opacity="${(alpha * 0.45).toFixed(3)}" />
+      <stop offset="1" stop-color="${color}" stop-opacity="0" />
+    </radialGradient>`).join('')
+
+  const shapes = mesh.map(([, , cx, cy, rx, ry], i) =>
+    `<ellipse class="drift${i === 1 ? ' drift-b' : i === 2 ? ' drift-c' : ''}" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#m${i})" />`).join('\n    ')
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
   <title id="t">${esc(HERO.alt)}</title>
@@ -121,46 +136,29 @@ function hero(t) {
       <stop offset="0" stop-color="${t.accentSoft}" />
       <stop offset="1" stop-color="${t.accent}" />
     </linearGradient>
-    <radialGradient id="blob">
-      <stop offset="0" stop-color="${t.accent}" stop-opacity="${t.blobAlpha}" />
-      <stop offset="1" stop-color="${t.accent}" stop-opacity="0" />
-    </radialGradient>
-    <radialGradient id="sunCore">
-      <stop offset="0" stop-color="#FFFFFF" />
-      <stop offset="0.45" stop-color="${t.accentSoft}" />
-      <stop offset="1" stop-color="${t.accent}" />
-    </radialGradient>
-    <radialGradient id="sunGlow">
-      <stop offset="0" stop-color="${t.accent}" stop-opacity="0.45" />
-      <stop offset="0.55" stop-color="${t.accent}" stop-opacity="0.14" />
-      <stop offset="1" stop-color="${t.accent}" stop-opacity="0" />
-    </radialGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="${t.surface2}" stop-opacity="0.97" />
+      <stop offset="0.40" stop-color="${t.surface2}" stop-opacity="0.62" />
+      <stop offset="0.74" stop-color="${t.surface2}" stop-opacity="0" />
+    </linearGradient>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="${t.grid}" stroke-width="1" />
     </pattern>
-    <clipPath id="frame"><rect width="${W}" height="${H}" rx="26" /></clipPath>
+    <clipPath id="frame"><rect width="${W}" height="${H}" rx="26" /></clipPath>${blobs}
   </defs>
   <style>${MOTION_CSS}
   </style>
   <g clip-path="url(#frame)">
     <rect width="${W}" height="${H}" fill="url(#surface)" />
-    <rect width="${W}" height="${H}" fill="url(#grid)" opacity="0.85" />
-    <ellipse cx="${CX}" cy="${CY}" rx="250" ry="200" fill="url(#blob)" />
+    ${shapes}
+    <rect width="${W}" height="${H}" fill="url(#grid)" opacity="0.5" />
+    <rect width="${W}" height="${H}" fill="url(#fade)" />
 
     <text x="64" y="78" font-family="${MONO}" font-size="12" letter-spacing="3.2" fill="${t.accentDeep}">${esc(HERO.kicker)}</text>
     <text x="64" y="146" font-family="${SANS}" font-size="58" font-weight="700" letter-spacing="-0.5" fill="${t.ink}">${esc(HERO.name)}</text>
     <rect x="66" y="166" width="56" height="4" rx="2" fill="url(#accent)" />
     <text x="64" y="212" font-family="${SANS}" font-size="21" fill="${t.body}">${esc(HERO.tagline)}</text>
     <text x="64" y="248" font-family="${MONO}" font-size="13" fill="${t.meta}">${esc(HERO.meta)}</text>
-
-    <g>
-      <circle class="halo" cx="${CX}" cy="${CY}" r="46" fill="url(#sunGlow)" />
-      <circle cx="${CX}" cy="${CY}" r="19" fill="none" stroke="${t.accent}" stroke-opacity="0.35" stroke-width="1" />
-      <circle cx="${CX}" cy="${CY}" r="12" fill="url(#sunCore)" />
-    </g>
-${orbit(78, 32, 0.34, '', 5, 13, t.accentDeep)}
-${orbit(134, 55, 0.20, '4 9', 7, 23, t.accent)}
-${orbit(188, 77, 0.10, '', 4, 37, t.accentSoft)}
   </g>
   <rect x="0.75" y="0.75" width="${W - 1.5}" height="${H - 1.5}" rx="25" fill="none" stroke="${t.cardBorder}" stroke-width="1.5" />
 </svg>
