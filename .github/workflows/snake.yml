@@ -1,0 +1,36 @@
+name: 🐍 贡献蛇
+
+on:
+  schedule:
+    # 每天 UTC 22:10（北京时间 06:10）重新生成
+    - cron: "10 22 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    name: 生成贡献蛇 SVG
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: 生成贡献网格（绿色调，明/暗两版）
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-contribution-grid-snake.svg?color_snake=%2310B981&color_dots=%23ECFDF5,%23D1FAE5,%23A7F3D0,%236EE7B7,%2334D399
+            dist/github-contribution-grid-snake-dark.svg?color_snake=%2334D399&color_dots=%230F2E26,%2314532D,%23047857,%2310B981,%236EE7B7
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 把 SVG 推到 output 分支
+        uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
