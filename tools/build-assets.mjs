@@ -113,12 +113,23 @@ const INTRO = {
   scoreUnit: '/ 10 · 自评',
   stamp: '成分表：纯路人',
   egg: '1-16',
+  // [图标, 名称, 格数]
   metrics: [
-    ['后端开发', 8], ['Agent', 7],
-    ['和美女聊天', 10], ['健身', 2],
-    ['摸鱼', 6], ['早睡', 1],
+    ['server', '后端开发', 8], ['agent', 'Agent', 7],
+    ['chat', '和美女聊天', 10], ['gym', '健身', 9],
+    ['fish', '摸鱼', 6], ['moon', '早睡', 1],
   ],
-  alt: 'j11andme 的成分表卡片：后端开发 8 格、Agent 7 格、和美女聊天 10 格、健身 2 格、摸鱼 6 格、早睡 1 格，盖有「成分表：纯路人」印章',
+  alt: 'j11andme 的成分表卡片：后端开发 8 格、Agent 7 格、和美女聊天 10 格、健身 9 格、摸鱼 6 格、早睡 1 格，盖有「成分表：纯路人」印章',
+}
+
+/* 自评条用的小图标：15×15 线性图标，描边走主色 */
+const ICONS = {
+  server: '<rect x="1" y="1.6" width="12" height="4.6" rx="1.6" /><rect x="1" y="7.8" width="12" height="4.6" rx="1.6" />',
+  agent: '<rect x="1.6" y="3.6" width="10.8" height="9" rx="3" /><path d="M7 3.6V1.2" /><circle cx="5.4" cy="8" r="0.85" /><circle cx="8.6" cy="8" r="0.85" />',
+  chat: '<rect x="0.9" y="2.4" width="12.2" height="8.2" rx="2.6" /><path d="M4.2 10.6V13l3.1-2.4" />',
+  gym: '<path d="M4.8 7h4.4" /><rect x="0.8" y="4" width="2.6" height="6" rx="1.1" /><rect x="10.6" y="4" width="2.6" height="6" rx="1.1" />',
+  fish: '<ellipse cx="5.8" cy="7" rx="4.7" ry="2.9" /><path d="M10.4 7l3-2.4v4.8z" />',
+  moon: '<path d="M11.4 9.4A5.4 5.4 0 0 1 4.6 2.6a5.4 5.4 0 1 0 6.8 6.8z" />',
 }
 
 /* ── 工具 ─────────────────────────────────────────────────────────────── */
@@ -273,24 +284,28 @@ function project(t, p) {
 `
 }
 
-/* ── 自我介绍卡（成分表 + 闪电阴影 + 印章）──────────────────────────── */
+/* ── 自我介绍卡（成分表 + 闪电阴影 + 居中印章）──────────────────────── */
 function intro(t) {
-  const W = 900, H = 300
+  const W = 900, H = 350
   const p = INTRO
-  const cols = [52, 336], rows = [156, 198, 240]
+  const cols = [52, 470], rows = [226, 270, 314]
+  const SEG_W = 20, SEG_GAP = 4, SEG_X = 112
 
-  const bars = p.metrics.map(([label, n], i) => {
+  const bars = p.metrics.map(([icon, label, n], i) => {
     const x = cols[i % 2], y = rows[Math.floor(i / 2)]
     let cells = ''
     for (let k = 0; k < 10; k++) {
-      cells += `<rect x="${x + 92 + k * 16}" y="${y - 12}" width="12" height="12" rx="3" fill="${k < n ? t.accent : t.track}" />`
+      const fill = k < n ? 'url(#seg)' : t.track
+      cells += `<rect x="${x + SEG_X + k * (SEG_W + SEG_GAP)}" y="${y - 6}" width="${SEG_W}" height="12" rx="3.5" fill="${fill}" />`
     }
-    return `<text x="${x}" y="${y}" font-family="${SANS}" font-size="12" fill="${t.body}">${esc(label)}</text>${cells}`
+    return `<g transform="translate(${x} ${y - 11})" fill="none" stroke="${t.accent}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">${ICONS[icon]}</g>
+    <text x="${x + 22}" y="${y}" font-family="${SANS}" font-size="12" fill="${t.body}">${esc(label)}</text>${cells}
+    <text x="${x + SEG_X + 10 * (SEG_W + SEG_GAP) + 6}" y="${y + 1}" font-family="${MONO}" font-size="10" fill="${t.meta}" opacity="0.75">${n}</text>`
   }).join('\n    ')
 
   const SEAL_FONT = "'SimSun', 'Songti SC', 'STSong', 'Noto Serif CJK SC', serif"
   const stampW = Math.round(p.stamp.length * 22 * 0.92 + 40)
-  const stampX = 700, stampY = 198
+  const stampX = W / 2, stampY = 148
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
   <title id="t">${esc(p.alt)}</title>
@@ -299,6 +314,10 @@ function intro(t) {
     <linearGradient id="ava" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="${t.accentSoft}" />
       <stop offset="1" stop-color="${t.accentDeep}" />
+    </linearGradient>
+    <linearGradient id="seg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="${t.accentDeep}" />
+      <stop offset="1" stop-color="${t.accent}" />
     </linearGradient>
     <filter id="ink" x="-14%" y="-22%" width="128%" height="144%">
       <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="3" seed="7" result="noise" />
@@ -309,7 +328,7 @@ function intro(t) {
   <g clip-path="url(#card)">
     <rect width="${W}" height="${H}" fill="${t.card}" />
 
-    <path d="M55,0 L10,80 L40,80 L22,150 L78,62 L46,62 L74,0 Z" transform="translate(556 0) scale(3.3 2.0)"
+    <path d="M55,0 L10,80 L40,80 L22,150 L78,62 L46,62 L74,0 Z" transform="translate(492 0) scale(3.0 2.35)"
           fill="${t.shadow}" opacity="0.055" />
 
     <circle cx="52" cy="60" r="24" fill="url(#ava)" />
@@ -322,13 +341,13 @@ function intro(t) {
 
     <line x1="52" y1="104" x2="${W - 52}" y2="104" stroke="${t.cardBorder}" stroke-width="1" />
 
-    ${bars}
-
-    <g transform="rotate(-5 ${stampX} ${stampY})" opacity="0.9" filter="url(#ink)">
+    <g transform="rotate(-4 ${stampX} ${stampY})" opacity="0.9" filter="url(#ink)">
       <rect x="${stampX - stampW / 2}" y="${stampY - 31}" width="${stampW}" height="62" rx="6" fill="none" stroke="${t.seal}" stroke-width="3.5" />
       <rect x="${stampX - stampW / 2 + 6}" y="${stampY - 25}" width="${stampW - 12}" height="50" rx="3" fill="none" stroke="${t.seal}" stroke-width="1" />
       <text x="${stampX}" y="${stampY + 8}" text-anchor="middle" font-family="${SEAL_FONT}" font-size="22" font-weight="700" fill="${t.seal}">${esc(p.stamp)}</text>
     </g>
+
+    ${bars}
 
     <text x="${W - 24}" y="${H - 14}" text-anchor="end" font-family="${MONO}" font-size="9" fill="${t.meta}" opacity="0.55">${esc(p.egg)}</text>
   </g>

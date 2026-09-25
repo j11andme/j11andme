@@ -27,6 +27,8 @@
 <br />
 <br />
 <a href="https://github.com/j11andme/pulseink/stargazers"><img alt="PulseInk" src="https://img.shields.io/github/stars/j11andme/pulseink?style=flat-square&label=PulseInk&labelColor=047857&color=10B981" /></a> &nbsp; <a href="https://github.com/j11andme/FDA-Net/stargazers"><img alt="FDA-Net" src="https://img.shields.io/github/stars/j11andme/FDA-Net?style=flat-square&label=FDA-Net&labelColor=047857&color=10B981" /></a>
+</div>
+
 <hr />
 
 ### 成分表 <sub>Player Card</sub>
@@ -40,16 +42,7 @@
 ### 贡献信号 <sub>Activity</sub>
 
 <div align="center">
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/j11andme/j11andme/output/github-contribution-grid-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/j11andme/j11andme/output/github-contribution-grid-snake.svg" />
-  <img alt="贡献活跃度" src="https://raw.githubusercontent.com/j11andme/j11andme/output/github-contribution-grid-snake.svg" width="100%" />
-</picture>
-
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/j11andme/j11andme/output/github-contribution-grid-snake-dark.svg" /><source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/j11andme/j11andme/output/github-contribution-grid-snake.svg" /><img alt="贡献活跃度" src="https://raw.githubusercontent.com/j11andme/j11andme/output/github-contribution-grid-snake.svg" width="100%" /></picture>
 <br />
-<br />
-
 <a href="mailto:3244315894@qq.com">聊聊 →</a>
-
 </div>
