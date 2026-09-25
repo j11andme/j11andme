@@ -32,7 +32,7 @@
 ### 成分表 <sub>Player Card</sub>
 
 <div align="center">
-<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/intro-card-dark.svg" /><source media="(prefers-color-scheme: light)" srcset="./assets/intro-card-light.svg" /><img src="./assets/intro-card-light.svg" alt="j11andme 的成分表：后端开发 8 格、Agent 7 格、和美女聊天 10 格、健身 2 格、摸鱼 6 格、早睡 1 格，盖有「成分表：姜爷拥趸」印章" width="72%" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/intro-card-dark.svg" /><source media="(prefers-color-scheme: light)" srcset="./assets/intro-card-light.svg" /><img src="./assets/intro-card-light.svg" alt="j11andme 的成分表：后端开发 8 格、Agent 7 格、和美女聊天 10 格、健身 2 格、摸鱼 6 格、早睡 1 格，盖有「成分表：纯路人」印章" width="100%" /></picture>
 </div>
 
 <hr />

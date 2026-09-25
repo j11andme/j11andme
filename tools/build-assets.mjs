@@ -29,18 +29,19 @@ const THEMES = {
     card: '#FFFFFF', cardBorder: '#D1FAE5',
     track: '#DCF6EA',
     seal: '#C1352B',
+    shadow: '#0F172A',
     // [颜色, 不透明度, cx, cy, rx, ry]
     mesh: [
-      ['#6EE7B7', 0.72, 1030, 0, 400, 280],
-      ['#34D399', 0.55, 1190, 250, 340, 240],
-      ['#2DD4BF', 0.42, 660, 300, 360, 230],
-      ['#A7F3D0', 0.68, 880, 90, 300, 210],
+      ['#6EE7B7', 0.88, 1030, 0, 400, 280],
+      ['#34D399', 0.70, 1190, 250, 340, 240],
+      ['#2DD4BF', 0.55, 660, 300, 360, 230],
+      ['#A7F3D0', 0.82, 880, 90, 300, 210],
     ],
     // 极光光束：[颜色, 不透明度, cx, cy, 宽, 高, 旋转角]
     beams: [
-      ['#6EE7B7', 0.60, 950, 40, 1040, 130, -17],
-      ['#2DD4BF', 0.40, 1080, 250, 920, 110, -13],
-      ['#A7F3D0', 0.55, 820, 150, 860, 90, -20],
+      ['#6EE7B7', 0.78, 950, 40, 1040, 130, -17],
+      ['#2DD4BF', 0.58, 1080, 250, 920, 110, -13],
+      ['#A7F3D0', 0.70, 820, 150, 860, 90, -20],
     ],
   },
   dark: {
@@ -52,16 +53,17 @@ const THEMES = {
     card: '#0B211C', cardBorder: '#14532D',
     track: '#123A2F',
     seal: '#E0685E',
+    shadow: '#E6F4EF',
     mesh: [
-      ['#10B981', 0.34, 1030, 0, 400, 280],
-      ['#047857', 0.50, 1190, 250, 340, 240],
-      ['#0D9488', 0.30, 660, 300, 360, 230],
-      ['#065F46', 0.62, 880, 90, 300, 210],
+      ['#10B981', 0.46, 1030, 0, 400, 280],
+      ['#047857', 0.62, 1190, 250, 340, 240],
+      ['#0D9488', 0.42, 660, 300, 360, 230],
+      ['#065F46', 0.74, 880, 90, 300, 210],
     ],
     beams: [
-      ['#10B981', 0.30, 950, 40, 1040, 130, -17],
-      ['#0D9488', 0.24, 1080, 250, 920, 110, -13],
-      ['#34D399', 0.16, 820, 150, 860, 90, -20],
+      ['#10B981', 0.44, 950, 40, 1040, 130, -17],
+      ['#0D9488', 0.36, 1080, 250, 920, 110, -13],
+      ['#34D399', 0.26, 820, 150, 860, 90, -20],
     ],
   },
 }
@@ -109,14 +111,14 @@ const INTRO = {
   role: 'Agent 玩家 · 后端开发',
   score: '8.5',
   scoreUnit: '/ 10 · 自评',
-  stamp: '成分表：姜爷拥趸',
+  stamp: '成分表：纯路人',
   egg: '1-16',
   metrics: [
     ['后端开发', 8], ['Agent', 7],
     ['和美女聊天', 10], ['健身', 2],
     ['摸鱼', 6], ['早睡', 1],
   ],
-  alt: 'j11andme 的成分表卡片：后端开发 8 格、Agent 7 格、和美女聊天 10 格、健身 2 格、摸鱼 6 格、早睡 1 格，盖有「成分表：姜爷拥趸」印章',
+  alt: 'j11andme 的成分表卡片：后端开发 8 格、Agent 7 格、和美女聊天 10 格、健身 2 格、摸鱼 6 格、早睡 1 格，盖有「成分表：纯路人」印章',
 }
 
 /* ── 工具 ─────────────────────────────────────────────────────────────── */
@@ -271,11 +273,11 @@ function project(t, p) {
 `
 }
 
-/* ── 自我介绍卡（成分表 + 人像水印 + 印章）──────────────────────────── */
+/* ── 自我介绍卡（成分表 + 闪电阴影 + 印章）──────────────────────────── */
 function intro(t) {
-  const W = 640, H = 440
+  const W = 900, H = 300
   const p = INTRO
-  const cols = [52, 336], rows = [170, 212, 254]
+  const cols = [52, 336], rows = [156, 198, 240]
 
   const bars = p.metrics.map(([label, n], i) => {
     const x = cols[i % 2], y = rows[Math.floor(i / 2)]
@@ -286,13 +288,13 @@ function intro(t) {
     return `<text x="${x}" y="${y}" font-family="${SANS}" font-size="12" fill="${t.body}">${esc(label)}</text>${cells}`
   }).join('\n    ')
 
-  // 印章：单行长条橡皮章，宋体 + 油墨扩散滤镜
   const SEAL_FONT = "'SimSun', 'Songti SC', 'STSong', 'Noto Serif CJK SC', serif"
   const stampW = Math.round(p.stamp.length * 22 * 0.92 + 40)
+  const stampX = 700, stampY = 198
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
   <title id="t">${esc(p.alt)}</title>
-  <desc id="d">自我介绍卡片：${esc(p.handle)}，${esc(p.role)}，含六项自评条、背景人像剪影与一枚印章。</desc>
+  <desc id="d">自我介绍卡片：${esc(p.handle)}，${esc(p.role)}，含六项自评条、闪电阴影背景与一枚印章。</desc>
   <defs>
     <linearGradient id="ava" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="${t.accentSoft}" />
@@ -307,28 +309,25 @@ function intro(t) {
   <g clip-path="url(#card)">
     <rect width="${W}" height="${H}" fill="${t.card}" />
 
-    <g opacity="0.05" fill="${t.accentDeep}" transform="translate(500 272) scale(1.45)">
-      <path d="M-78,132 C-70,84 -40,68 0,68 C40,68 70,84 78,132 Z" />
-      <circle cx="0" cy="30" r="35" />
-      <path d="M-40,24 C-38,-12 -18,-28 4,-28 C28,-28 42,-8 42,20 C32,2 16,-4 2,0 C-14,4 -30,12 -40,24 Z" />
-    </g>
+    <path d="M55,0 L10,80 L40,80 L22,150 L78,62 L46,62 L74,0 Z" transform="translate(556 0) scale(3.3 2.0)"
+          fill="${t.shadow}" opacity="0.055" />
 
-    <circle cx="56" cy="64" r="26" fill="url(#ava)" />
-    <text x="56" y="73" text-anchor="middle" font-family="${SANS}" font-size="24" font-weight="700" fill="#FFFFFF">j</text>
-    <text x="96" y="56" font-family="${SANS}" font-size="19" font-weight="600" fill="${t.ink}">${esc(p.handle)}</text>
-    <text x="96" y="79" font-family="${SANS}" font-size="12.5" fill="${t.meta}">${esc(p.role)}</text>
+    <circle cx="52" cy="60" r="24" fill="url(#ava)" />
+    <text x="52" y="69" text-anchor="middle" font-family="${SANS}" font-size="22" font-weight="700" fill="#FFFFFF">j</text>
+    <text x="88" y="52" font-family="${SANS}" font-size="19" font-weight="600" fill="${t.ink}">${esc(p.handle)}</text>
+    <text x="88" y="74" font-family="${SANS}" font-size="12.5" fill="${t.meta}">${esc(p.role)}</text>
 
-    <text x="${W - 56}" y="74" text-anchor="end" font-family="${SANS}" font-size="42" font-weight="700" letter-spacing="-1" fill="${t.ink}">${esc(p.score)}</text>
-    <text x="${W - 56}" y="92" text-anchor="end" font-family="${SANS}" font-size="11" fill="${t.meta}">${esc(p.scoreUnit)}</text>
+    <text x="${W - 52}" y="70" text-anchor="end" font-family="${SANS}" font-size="40" font-weight="700" letter-spacing="-1" fill="${t.ink}">${esc(p.score)}</text>
+    <text x="${W - 52}" y="88" text-anchor="end" font-family="${SANS}" font-size="11" fill="${t.meta}">${esc(p.scoreUnit)}</text>
 
-    <line x1="52" y1="112" x2="${W - 52}" y2="112" stroke="${t.cardBorder}" stroke-width="1" />
+    <line x1="52" y1="104" x2="${W - 52}" y2="104" stroke="${t.cardBorder}" stroke-width="1" />
 
     ${bars}
 
-    <g transform="rotate(-6 320 372)" opacity="0.88" filter="url(#ink)">
-      <rect x="${320 - stampW / 2}" y="341" width="${stampW}" height="62" rx="6" fill="none" stroke="${t.seal}" stroke-width="3.5" />
-      <rect x="${320 - stampW / 2 + 6}" y="347" width="${stampW - 12}" height="50" rx="3" fill="none" stroke="${t.seal}" stroke-width="1" />
-      <text x="320" y="383" text-anchor="middle" font-family="${SEAL_FONT}" font-size="22" font-weight="700" fill="${t.seal}">${esc(p.stamp)}</text>
+    <g transform="rotate(-5 ${stampX} ${stampY})" opacity="0.9" filter="url(#ink)">
+      <rect x="${stampX - stampW / 2}" y="${stampY - 31}" width="${stampW}" height="62" rx="6" fill="none" stroke="${t.seal}" stroke-width="3.5" />
+      <rect x="${stampX - stampW / 2 + 6}" y="${stampY - 25}" width="${stampW - 12}" height="50" rx="3" fill="none" stroke="${t.seal}" stroke-width="1" />
+      <text x="${stampX}" y="${stampY + 8}" text-anchor="middle" font-family="${SEAL_FONT}" font-size="22" font-weight="700" fill="${t.seal}">${esc(p.stamp)}</text>
     </g>
 
     <text x="${W - 24}" y="${H - 14}" text-anchor="end" font-family="${MONO}" font-size="9" fill="${t.meta}" opacity="0.55">${esc(p.egg)}</text>

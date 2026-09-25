@@ -20,38 +20,38 @@
     </pattern>
     <clipPath id="frame"><rect width="1200" height="300" rx="26" /></clipPath>
     <radialGradient id="m0">
-      <stop offset="0" stop-color="#10B981" stop-opacity="0.34" />
-      <stop offset="0.55" stop-color="#10B981" stop-opacity="0.153" />
+      <stop offset="0" stop-color="#10B981" stop-opacity="0.46" />
+      <stop offset="0.55" stop-color="#10B981" stop-opacity="0.207" />
       <stop offset="1" stop-color="#10B981" stop-opacity="0" />
     </radialGradient>
     <radialGradient id="m1">
-      <stop offset="0" stop-color="#047857" stop-opacity="0.5" />
-      <stop offset="0.55" stop-color="#047857" stop-opacity="0.225" />
+      <stop offset="0" stop-color="#047857" stop-opacity="0.62" />
+      <stop offset="0.55" stop-color="#047857" stop-opacity="0.279" />
       <stop offset="1" stop-color="#047857" stop-opacity="0" />
     </radialGradient>
     <radialGradient id="m2">
-      <stop offset="0" stop-color="#0D9488" stop-opacity="0.3" />
-      <stop offset="0.55" stop-color="#0D9488" stop-opacity="0.135" />
+      <stop offset="0" stop-color="#0D9488" stop-opacity="0.42" />
+      <stop offset="0.55" stop-color="#0D9488" stop-opacity="0.189" />
       <stop offset="1" stop-color="#0D9488" stop-opacity="0" />
     </radialGradient>
     <radialGradient id="m3">
-      <stop offset="0" stop-color="#065F46" stop-opacity="0.62" />
-      <stop offset="0.55" stop-color="#065F46" stop-opacity="0.279" />
+      <stop offset="0" stop-color="#065F46" stop-opacity="0.74" />
+      <stop offset="0.55" stop-color="#065F46" stop-opacity="0.333" />
       <stop offset="1" stop-color="#065F46" stop-opacity="0" />
     </radialGradient>
     <linearGradient id="beam0" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#10B981" stop-opacity="0" />
-      <stop offset="0.5" stop-color="#10B981" stop-opacity="0.3" />
+      <stop offset="0.5" stop-color="#10B981" stop-opacity="0.44" />
       <stop offset="1" stop-color="#10B981" stop-opacity="0" />
     </linearGradient>
     <linearGradient id="beam1" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#0D9488" stop-opacity="0" />
-      <stop offset="0.5" stop-color="#0D9488" stop-opacity="0.24" />
+      <stop offset="0.5" stop-color="#0D9488" stop-opacity="0.36" />
       <stop offset="1" stop-color="#0D9488" stop-opacity="0" />
     </linearGradient>
     <linearGradient id="beam2" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#34D399" stop-opacity="0" />
-      <stop offset="0.5" stop-color="#34D399" stop-opacity="0.16" />
+      <stop offset="0.5" stop-color="#34D399" stop-opacity="0.26" />
       <stop offset="1" stop-color="#34D399" stop-opacity="0" />
     </linearGradient>
   </defs>
