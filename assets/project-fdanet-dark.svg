@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240" role="img" aria-labelledby="t d">
+  <title id="t">FDA-Net — 水下目标检测域泛化的频域对齐框架</title>
+  <desc id="d">项目卡片：编号 02，FDA-Net。</desc>
+  <defs>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#047857" />
+      <stop offset="1" stop-color="#34D399" />
+    </linearGradient>
+    <clipPath id="card"><rect width="900" height="240" rx="18" /></clipPath>
+  </defs>
+  <g clip-path="url(#card)">
+    <rect width="900" height="240" fill="#0B211C" />
+    <rect x="0" y="0" width="5" height="240" fill="url(#bar)" />
+    <text x="34" y="56" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="12" letter-spacing="2.6" fill="#6EE7B7">PAPER CODE · DOMAIN GENERALIZATION</text>
+    <rect x="836" y="36" width="30" height="30" rx="9" fill="#0F2E26" />
+    <text x="851" y="56" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#6EE7B7">02</text>
+    <text x="34" y="126" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="30" font-weight="600" fill="#EAF7F2">FDA-Net</text>
+    <text x="34" y="160" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="15" fill="#B9D6CC">水下目标检测域泛化：通过频域解耦与对齐挖掘域不变特征（LFM + SAE + FSA），</text>
+    <text x="34" y="184" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="15" fill="#B9D6CC">论文配套代码，在 S-UODAC2020 上取得 SOTA。</text>
+    <g>
+      <rect x="34" y="196" width="80" height="26" rx="13" fill="#0F2E26" />
+      <text x="74" y="213" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="12" fill="#6EE7B7">PyTorch</text>
+    </g>
+    <g>
+      <rect x="122" y="196" width="110" height="26" rx="13" fill="#0F2E26" />
+      <text x="177" y="213" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="12" fill="#6EE7B7">MMDetection</text>
+    </g>
+    <g>
+      <rect x="240" y="196" width="80" height="26" rx="13" fill="#0F2E26" />
+      <text x="280" y="213" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="12" fill="#6EE7B7">YOLO11s</text>
+    </g>
+    <text x="866" y="214" text-anchor="end" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="20" fill="#34D399">→</text>
+  </g>
+  <rect x="0.75" y="0.75" width="898.5" height="238.5" rx="17" fill="none" stroke="#14532D" stroke-width="1.5" />
+</svg>
