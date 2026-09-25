@@ -1,6 +1,10 @@
 <div align="center">
 
-<img src="./assets/hero-cover.svg?v=1c68104b" alt="j11andme — Agent 应用工程、内容工作流与计算机视觉" width="100%" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/hero-dark.svg?v=7cf85151" />
+  <source media="(prefers-color-scheme: light)" srcset="./assets/hero-light.svg?v=a6ff1dfd" />
+  <img src="./assets/hero-light.svg?v=a6ff1dfd" alt="j11andme — Agent 应用工程、内容工作流与计算机视觉" width="100%" />
+</picture>
 
 <p>
   <strong>现在在做：</strong><a href="https://github.com/j11andme/pulseink">PulseInk</a>（Java Agent 工作台）、<a href="https://github.com/j11andme/FDA-Net">FDA-Net</a>（水下目标检测域泛化方法）。
@@ -29,7 +33,7 @@
 ### 成分表 <sub>Player Card</sub>
 
 <div align="center">
-<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/intro-card-dark.svg?v=10fadffd" /><source media="(prefers-color-scheme: light)" srcset="./assets/intro-card-light.svg?v=b38dd559" /><img src="./assets/intro-card-light.svg?v=b38dd559" alt="j11andme 的成分表：后端开发 8 格、Agent 7 格、和美女聊天 10 格、健身 2 格、摸鱼 6 格、早睡 1 格，盖有「成分表：纯路人」印章" width="100%" /></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/intro-card-dark.svg?v=0a7a3675" /><source media="(prefers-color-scheme: light)" srcset="./assets/intro-card-light.svg?v=c1ac4f60" /><img src="./assets/intro-card-light.svg?v=c1ac4f60" alt="j11andme 的成分表：后端开发 8 格、Agent 7 格、和美女聊天 10 格、健身 2 格、摸鱼 6 格、早睡 1 格，盖有「成分表：纯路人」印章" width="100%" /></picture>
 </div>
 
 <hr />

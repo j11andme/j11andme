@@ -19,6 +19,10 @@ const OUT = join(ROOT, 'assets')
 const SANS = "Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif"
 const MONO = "ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace"
 
+/* 成分表卡的背景图（虚化宽幅），懒加载并缓存 */
+let CARD_BG_B64 = null
+const cardBg = () => (CARD_BG_B64 ??= readFileSync(join(ROOT, 'assets', 'card-photo.jpg')).toString('base64'))
+
 /* ── 配色 ─────────────────────────────────────────────────────────────── */
 const THEMES = {
   light: {
@@ -376,6 +380,8 @@ function intro(t) {
   <g clip-path="url(#card)">
     <rect width="${W}" height="${H}" fill="${t.card}" />
 
+    <image x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="xMidYMid slice" opacity="0.28" href="data:image/jpeg;base64,${cardBg()}" />
+
     <circle cx="52" cy="50" r="24" fill="url(#ava)" />
     <text x="52" y="59" text-anchor="middle" font-family="${SANS}" font-size="22" font-weight="700" fill="#FFFFFF">j</text>
     <text x="88" y="42" font-family="${SANS}" font-size="19" font-weight="600" fill="${t.ink}">${esc(p.handle)}</text>
@@ -443,7 +449,9 @@ function cover() {
 
 /* ── 输出 ─────────────────────────────────────────────────────────────── */
 mkdirSync(OUT, { recursive: true })
-const written = [['hero-cover.svg', cover()]]
+/* 封面版代码保留但暂不启用：想要插画大封面时，把下面这行改回
+   const written = [['hero-cover.svg', cover()]] 即可。 */
+const written = []
 for (const [key, t] of Object.entries(THEMES)) {
   written.push([`hero-${key}.svg`, hero(t)])
   written.push([`intro-card-${key}.svg`, intro(t)])
