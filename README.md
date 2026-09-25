@@ -28,7 +28,9 @@
 
 </div>
 
-## 精选项目 <sub>Selected Work</sub>
+<hr />
+
+### 精选项目 <sub>Selected Work</sub>
 
 <div align="center">
 
@@ -66,7 +68,9 @@
 
 </div>
 
-## 贡献信号 <sub>Activity</sub>
+<hr />
+
+### 贡献信号 <sub>Activity</sub>
 
 <div align="center">
 
