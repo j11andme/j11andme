@@ -8,7 +8,8 @@
  *
  * 改配色只动下面的 THEMES；改文案只动 HERO / PROJECTS。
  */
-import { mkdirSync, writeFileSync } from 'node:fs'
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { createHash } from 'node:crypto'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -346,8 +347,8 @@ function intro(t) {
       cells += `<rect x="${x + SEG_X + k * (SEG_W + SEG_GAP)}" y="${y - 6}" width="${SEG_W}" height="12" rx="3.5" fill="${fill}" />`
     }
     return `<g transform="translate(${x} ${y - 11})" fill="none" stroke="${t.accent}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">${ICONS[icon]}</g>
-    <text x="${x + 22}" y="${y}" font-family="${SANS}" font-size="12" fill="${t.body}">${esc(label)}</text>${cells}
-    <text x="${x + SEG_X + 10 * (SEG_W + SEG_GAP) + 6}" y="${y + 1}" font-family="${MONO}" font-size="10" fill="${t.meta}" opacity="0.75">${n}</text>`
+    <text x="${x + 22}" y="${y}" font-family="${SANS}" font-size="12" fill="${t.ink}">${esc(label)}</text>${cells}
+    <text x="${x + SEG_X + 10 * (SEG_W + SEG_GAP) + 6}" y="${y + 1}" font-family="${MONO}" font-size="10" fill="${t.body}">${n}</text>`
   }).join('\n    ')
 
   const SEAL_FONT = "'SimSun', 'Songti SC', 'STSong', 'Noto Serif CJK SC', serif"
@@ -381,10 +382,10 @@ function intro(t) {
     <circle cx="52" cy="50" r="24" fill="url(#ava)" />
     <text x="52" y="59" text-anchor="middle" font-family="${SANS}" font-size="22" font-weight="700" fill="#FFFFFF">j</text>
     <text x="88" y="42" font-family="${SANS}" font-size="19" font-weight="600" fill="${t.ink}">${esc(p.handle)}</text>
-    <text x="88" y="64" font-family="${SANS}" font-size="12.5" fill="${t.meta}">${esc(p.role)}</text>
+    <text x="88" y="64" font-family="${SANS}" font-size="12.5" fill="${t.body}">${esc(p.role)}</text>
 
     <text x="${W - 52}" y="60" text-anchor="end" font-family="${SANS}" font-size="40" font-weight="700" letter-spacing="-1" fill="${t.ink}">${esc(p.score)}</text>
-    <text x="${W - 52}" y="78" text-anchor="end" font-family="${SANS}" font-size="11" fill="${t.meta}">${esc(p.scoreUnit)}</text>
+    <text x="${W - 52}" y="78" text-anchor="end" font-family="${SANS}" font-size="11" fill="${t.body}">${esc(p.scoreUnit)}</text>
 
     <line x1="52" y1="94" x2="${W - 52}" y2="94" stroke="${t.cardBorder}" stroke-width="1" />
 
@@ -414,4 +415,24 @@ for (const [key, t] of Object.entries(THEMES)) {
 for (const [name, body] of written) {
   writeFileSync(join(OUT, name), body, 'utf8')
   console.log('wrote assets/' + name, body.length + 'B')
+}
+
+/* ── 给 README 的资源引用加内容哈希，穿透 GitHub raw 的 CDN 缓存 ────────
+   图片域名缓存 5 分钟，改完图后普通刷新会看到旧版。URL 里带上内容哈希后，
+   只要文件变了 URL 就变，浏览器和 CDN 都必须重新拉取。 */
+const README = join(ROOT, 'README.md')
+let md = readFileSync(README, 'utf8')
+const escaper = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+let touched = 0
+for (const [name, body] of written) {
+  const hash = createHash('sha1').update(body).digest('hex').slice(0, 8)
+  const re = new RegExp(`\\./assets/${escaper(name)}(\\?v=[0-9a-f]+)?`, 'g')
+  const next = md.replace(re, `./assets/${name}?v=${hash}`)
+  if (next !== md) { md = next; touched++ }
+}
+if (md !== readFileSync(README, 'utf8')) {
+  writeFileSync(README, md, 'utf8')
+  console.log(`README: 已更新 ${touched} 处资源引用的内容哈希`)
+} else {
+  console.log('README: 资源引用无需变更')
 }
