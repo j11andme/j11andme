@@ -333,7 +333,7 @@ function project(t, p) {
 
 /* ── 自我介绍卡（成分表 + 闪电阴影 + 居中印章）──────────────────────── */
 function intro(t) {
-  const W = 900, H = 260
+  const W = 900, H = 248
   const p = INTRO
   const cols = [52, 470], rows = [126, 170, 214]
   const SEG_W = 20, SEG_GAP = 4, SEG_X = 112
@@ -352,7 +352,7 @@ function intro(t) {
 
   const SEAL_FONT = "'SimSun', 'Songti SC', 'STSong', 'Noto Serif CJK SC', serif"
   const stampW = Math.round(p.stamp.length * 22 * 0.92 + 40)
-  const stampX = 390, stampY = 204
+  const stampX = 390, stampY = 172
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
   <title id="t">${esc(p.alt)}</title>
