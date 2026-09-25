@@ -161,7 +161,46 @@ const MOTION_CSS = `
       72% { opacity: .45; }
       100% { transform: translateY(-48px); opacity: 0; }
     }
-    @media (prefers-reduced-motion: reduce) { .drift, .beam, .pt { animation: none !important; } }`
+    .cell { animation-name: cellOn; animation-timing-function: ease-in-out; animation-iteration-count: infinite; opacity: 0; }
+    @keyframes cellOn { 0%, 100% { opacity: 0; } 42%, 58% { opacity: .22; } }
+    .flow { animation-name: flowX; animation-timing-function: linear; animation-iteration-count: infinite; opacity: 0; }
+    .flow-y { animation-name: flowY; }
+    @keyframes flowX {
+      0% { transform: translateX(-96px); opacity: 0; }
+      14% { opacity: .9; }
+      86% { opacity: .9; }
+      100% { transform: translateX(96px); opacity: 0; }
+    }
+    @keyframes flowY {
+      0% { transform: translateY(-64px); opacity: 0; }
+      16% { opacity: .85; }
+      84% { opacity: .85; }
+      100% { transform: translateY(64px); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { .drift, .beam, .pt, .cell, .flow { animation: none !important; } }`
+
+/* 固定种子，保证每次生成结果一致 */
+const makeRnd = (seed) => () => {
+  seed = (seed * 1103515245 + 12345) & 0x7fffffff
+  return seed / 0x7fffffff
+}
+
+/* 随机点亮的网格单元（只在右半区，避免干扰左侧文字） */
+const GRID_CELLS = (() => {
+  const r = makeRnd(20260925)
+  return Array.from({ length: 24 }, () => ({
+    x: (18 + Math.floor(r() * 19)) * 32,
+    y: Math.floor(r() * 9) * 32,
+    dur: (6 + r() * 9).toFixed(1),
+    delay: (r() * 15).toFixed(1),
+  }))
+})()
+
+/* 沿网格线流动的点：[x, y, 方向] */
+const GRID_FLOWS = [
+  [608, 32, 'x'], [768, 96, 'x'], [928, 160, 'x'], [1088, 224, 'x'],
+  [672, 288, 'x'], [1152, 64, 'y'], [1024, 128, 'y'], [832, 256, 'y'],
+]
 
 /* ── hero：柔光色团背景（mesh gradient）+ 左侧文字 ────────────────────── */
 function hero(t) {
@@ -200,6 +239,12 @@ function hero(t) {
   const dots = DOTS.map(([x, y, r, o, dur, delay]) =>
     `<circle class="pt" cx="${x}" cy="${y}" r="${r}" fill="${t.accent}" opacity="${o}" style="animation-duration:${dur}s;animation-delay:${delay}s" />`).join('\n    ')
 
+  // 随机点亮的网格单元 + 沿网格线流动的点
+  const cells = GRID_CELLS.map(({ x, y, dur, delay }) =>
+    `<rect class="cell" x="${x + 1}" y="${y + 1}" width="30" height="30" rx="5" fill="${t.accent}" style="animation-duration:${dur}s;animation-delay:${delay}s" />`).join('\n    ')
+  const flows = GRID_FLOWS.map(([x, y, dir], i) =>
+    `<circle class="flow${dir === 'y' ? ' flow-y' : ''}" cx="${x}" cy="${y}" r="2.4" fill="${t.accent}" style="animation-duration:${(9 + i * 1.3).toFixed(1)}s;animation-delay:${(i * 0.9).toFixed(1)}s" />`).join('\n    ')
+
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
   <title id="t">${esc(HERO.alt)}</title>
   <desc id="d">${esc(HERO.desc)}</desc>
@@ -230,6 +275,8 @@ function hero(t) {
     ${beams}
     <rect width="${W}" height="${H}" fill="url(#grid)" opacity="0.45" />
     <rect width="${W}" height="${H}" fill="url(#fade)" />
+    ${cells}
+    ${flows}
     ${dots}
 
     <text x="64" y="78" font-family="${MONO}" font-size="12" letter-spacing="3.2" fill="${t.accentDeep}">${esc(HERO.kicker)}</text>
@@ -286,9 +333,9 @@ function project(t, p) {
 
 /* ── 自我介绍卡（成分表 + 闪电阴影 + 居中印章）──────────────────────── */
 function intro(t) {
-  const W = 900, H = 350
+  const W = 900, H = 320
   const p = INTRO
-  const cols = [52, 470], rows = [226, 270, 314]
+  const cols = [52, 470], rows = [172, 216, 260]
   const SEG_W = 20, SEG_GAP = 4, SEG_X = 112
 
   const bars = p.metrics.map(([icon, label, n], i) => {
@@ -305,7 +352,7 @@ function intro(t) {
 
   const SEAL_FONT = "'SimSun', 'Songti SC', 'STSong', 'Noto Serif CJK SC', serif"
   const stampW = Math.round(p.stamp.length * 22 * 0.92 + 40)
-  const stampX = W / 2, stampY = 148
+  const stampX = 390, stampY = 268
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
   <title id="t">${esc(p.alt)}</title>
@@ -328,7 +375,7 @@ function intro(t) {
   <g clip-path="url(#card)">
     <rect width="${W}" height="${H}" fill="${t.card}" />
 
-    <path d="M55,0 L10,80 L40,80 L22,150 L78,62 L46,62 L74,0 Z" transform="translate(492 0) scale(3.0 2.35)"
+    <path d="M55,0 L10,80 L40,80 L22,150 L78,62 L46,62 L74,0 Z" transform="translate(560 0) scale(2.8 2.15)"
           fill="${t.shadow}" opacity="0.055" />
 
     <circle cx="52" cy="60" r="24" fill="url(#ava)" />

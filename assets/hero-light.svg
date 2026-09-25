@@ -71,7 +71,23 @@
       72% { opacity: .45; }
       100% { transform: translateY(-48px); opacity: 0; }
     }
-    @media (prefers-reduced-motion: reduce) { .drift, .beam, .pt { animation: none !important; } }
+    .cell { animation-name: cellOn; animation-timing-function: ease-in-out; animation-iteration-count: infinite; opacity: 0; }
+    @keyframes cellOn { 0%, 100% { opacity: 0; } 42%, 58% { opacity: .22; } }
+    .flow { animation-name: flowX; animation-timing-function: linear; animation-iteration-count: infinite; opacity: 0; }
+    .flow-y { animation-name: flowY; }
+    @keyframes flowX {
+      0% { transform: translateX(-96px); opacity: 0; }
+      14% { opacity: .9; }
+      86% { opacity: .9; }
+      100% { transform: translateX(96px); opacity: 0; }
+    }
+    @keyframes flowY {
+      0% { transform: translateY(-64px); opacity: 0; }
+      16% { opacity: .85; }
+      84% { opacity: .85; }
+      100% { transform: translateY(64px); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { .drift, .beam, .pt, .cell, .flow { animation: none !important; } }
   </style>
   <g clip-path="url(#frame)">
     <rect width="1200" height="300" fill="url(#surface)" />
@@ -84,6 +100,38 @@
     <g transform="rotate(-20 820 150)"><g class="beam beam-c"><rect x="390" y="105" width="860" height="90" fill="url(#beam2)" /></g></g>
     <rect width="1200" height="300" fill="url(#grid)" opacity="0.45" />
     <rect width="1200" height="300" fill="url(#fade)" />
+    <rect class="cell" x="961" y="257" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:10.5s;animation-delay:9.1s" />
+    <rect class="cell" x="1089" y="161" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:14.5s;animation-delay:5.9s" />
+    <rect class="cell" x="1057" y="1" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:7.6s;animation-delay:14.6s" />
+    <rect class="cell" x="1089" y="65" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:10.8s;animation-delay:11.4s" />
+    <rect class="cell" x="737" y="97" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:8.2s;animation-delay:14.8s" />
+    <rect class="cell" x="833" y="193" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:8.8s;animation-delay:2.0s" />
+    <rect class="cell" x="833" y="225" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:9.3s;animation-delay:11.4s" />
+    <rect class="cell" x="897" y="1" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:8.6s;animation-delay:9.4s" />
+    <rect class="cell" x="1057" y="193" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:6.8s;animation-delay:13.5s" />
+    <rect class="cell" x="833" y="1" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:11.7s;animation-delay:9.4s" />
+    <rect class="cell" x="1089" y="33" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:7.4s;animation-delay:2.7s" />
+    <rect class="cell" x="801" y="129" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:6.4s;animation-delay:3.4s" />
+    <rect class="cell" x="673" y="129" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:8.2s;animation-delay:9.4s" />
+    <rect class="cell" x="993" y="33" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:9.4s;animation-delay:8.6s" />
+    <rect class="cell" x="1025" y="1" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:14.3s;animation-delay:3.5s" />
+    <rect class="cell" x="961" y="65" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:12.3s;animation-delay:9.3s" />
+    <rect class="cell" x="641" y="65" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:14.4s;animation-delay:6.5s" />
+    <rect class="cell" x="865" y="1" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:11.7s;animation-delay:9.9s" />
+    <rect class="cell" x="705" y="193" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:11.6s;animation-delay:12.6s" />
+    <rect class="cell" x="1025" y="33" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:6.9s;animation-delay:4.8s" />
+    <rect class="cell" x="801" y="129" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:6.5s;animation-delay:1.6s" />
+    <rect class="cell" x="609" y="193" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:10.9s;animation-delay:7.6s" />
+    <rect class="cell" x="961" y="1" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:14.1s;animation-delay:10.9s" />
+    <rect class="cell" x="929" y="97" width="30" height="30" rx="5" fill="#10B981" style="animation-duration:12.9s;animation-delay:0.4s" />
+    <circle class="flow" cx="608" cy="32" r="2.4" fill="#10B981" style="animation-duration:9.0s;animation-delay:0.0s" />
+    <circle class="flow" cx="768" cy="96" r="2.4" fill="#10B981" style="animation-duration:10.3s;animation-delay:0.9s" />
+    <circle class="flow" cx="928" cy="160" r="2.4" fill="#10B981" style="animation-duration:11.6s;animation-delay:1.8s" />
+    <circle class="flow" cx="1088" cy="224" r="2.4" fill="#10B981" style="animation-duration:12.9s;animation-delay:2.7s" />
+    <circle class="flow" cx="672" cy="288" r="2.4" fill="#10B981" style="animation-duration:14.2s;animation-delay:3.6s" />
+    <circle class="flow flow-y" cx="1152" cy="64" r="2.4" fill="#10B981" style="animation-duration:15.5s;animation-delay:4.5s" />
+    <circle class="flow flow-y" cx="1024" cy="128" r="2.4" fill="#10B981" style="animation-duration:16.8s;animation-delay:5.4s" />
+    <circle class="flow flow-y" cx="832" cy="256" r="2.4" fill="#10B981" style="animation-duration:18.1s;animation-delay:6.3s" />
     <circle class="pt" cx="672" cy="214" r="2.6" fill="#10B981" opacity="0.55" style="animation-duration:17s;animation-delay:0s" />
     <circle class="pt" cx="716" cy="96" r="1.8" fill="#10B981" opacity="0.42" style="animation-duration:21s;animation-delay:3.5s" />
     <circle class="pt" cx="758" cy="258" r="2.2" fill="#10B981" opacity="0.5" style="animation-duration:15s;animation-delay:7s" />
