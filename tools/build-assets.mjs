@@ -380,7 +380,7 @@ function intro(t) {
   <g clip-path="url(#card)">
     <rect width="${W}" height="${H}" fill="${t.card}" />
 
-    <image x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="xMidYMid slice" opacity="0.28" href="data:image/jpeg;base64,${cardBg()}" />
+    <image x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="xMidYMid slice" href="data:image/jpeg;base64,${cardBg()}" />
 
     <circle cx="52" cy="50" r="24" fill="url(#ava)" />
     <text x="52" y="59" text-anchor="middle" font-family="${SANS}" font-size="22" font-weight="700" fill="#FFFFFF">j</text>
