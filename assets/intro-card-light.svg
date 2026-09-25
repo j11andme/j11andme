@@ -19,9 +19,6 @@
   <g clip-path="url(#card)">
     <rect width="900" height="248" fill="#FFFFFF" />
 
-    <path d="M55,0 L10,80 L40,80 L22,150 L78,62 L46,62 L74,0 Z" transform="translate(560 0) scale(2.8 2.15)"
-          fill="#0F172A" opacity="0.055" />
-
     <circle cx="52" cy="50" r="24" fill="url(#ava)" />
     <text x="52" y="59" text-anchor="middle" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">j</text>
     <text x="88" y="42" font-family="Inter, 'Segoe UI', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="19" font-weight="600" fill="#0F172A">@j11andme</text>
@@ -56,8 +53,6 @@
       <rect x="305" y="147" width="170" height="50" rx="3" fill="none" stroke="#C1352B" stroke-width="1" />
       <text x="390" y="180" text-anchor="middle" font-family="'SimSun', 'Songti SC', 'STSong', 'Noto Serif CJK SC', serif" font-size="22" font-weight="700" fill="#C1352B">成分表：纯路人</text>
     </g>
-
-    <text x="876" y="236" text-anchor="end" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', monospace" font-size="9" fill="#64748B" opacity="0.55">1-16</text>
   </g>
   <rect x="0.75" y="0.75" width="898.5" height="246.5" rx="15" fill="none" stroke="#D1FAE5" stroke-width="1.5" />
 </svg>

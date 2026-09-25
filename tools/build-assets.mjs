@@ -376,9 +376,6 @@ function intro(t) {
   <g clip-path="url(#card)">
     <rect width="${W}" height="${H}" fill="${t.card}" />
 
-    <path d="M55,0 L10,80 L40,80 L22,150 L78,62 L46,62 L74,0 Z" transform="translate(560 0) scale(2.8 2.15)"
-          fill="${t.shadow}" opacity="0.055" />
-
     <circle cx="52" cy="50" r="24" fill="url(#ava)" />
     <text x="52" y="59" text-anchor="middle" font-family="${SANS}" font-size="22" font-weight="700" fill="#FFFFFF">j</text>
     <text x="88" y="42" font-family="${SANS}" font-size="19" font-weight="600" fill="${t.ink}">${esc(p.handle)}</text>
@@ -396,17 +393,57 @@ function intro(t) {
       <rect x="${stampX - stampW / 2 + 6}" y="${stampY - 25}" width="${stampW - 12}" height="50" rx="3" fill="none" stroke="${t.seal}" stroke-width="1" />
       <text x="${stampX}" y="${stampY + 8}" text-anchor="middle" font-family="${SEAL_FONT}" font-size="22" font-weight="700" fill="${t.seal}">${esc(p.stamp)}</text>
     </g>
-
-    <text x="${W - 24}" y="${H - 12}" text-anchor="end" font-family="${MONO}" font-size="9" fill="${t.meta}" opacity="0.55">${esc(p.egg)}</text>
   </g>
   <rect x="0.75" y="0.75" width="${W - 1.5}" height="${H - 1.5}" rx="15" fill="none" stroke="${t.cardBorder}" stroke-width="1.5" />
 </svg>
 `
 }
 
+/* ── 大封面：插画照片 + 左侧渐隐 + 姓名文字 ─────────────────────────── */
+let COVER_B64 = null
+function cover() {
+  const W = 1200, H = 560
+  if (COVER_B64 === null) COVER_B64 = readFileSync(join(ROOT, 'assets', 'cover-photo.jpg')).toString('base64')
+  const t = THEMES.light
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="t d">
+  <title id="t">${esc(HERO.alt)}</title>
+  <desc id="d">封面：左侧姓名与技术方向，右侧为电竞选手插画，画面中带有闪电手势与 1-16 字样。</desc>
+  <defs>
+    <linearGradient id="coverScrim" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#03130F" stop-opacity="0.94" />
+      <stop offset="0.30" stop-color="#03130F" stop-opacity="0.80" />
+      <stop offset="0.58" stop-color="#03130F" stop-opacity="0.34" />
+      <stop offset="0.86" stop-color="#03130F" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="coverFoot" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.62" stop-color="#03130F" stop-opacity="0" />
+      <stop offset="1" stop-color="#03130F" stop-opacity="0.42" />
+    </linearGradient>
+    <linearGradient id="coverAccent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6EE7B7" />
+      <stop offset="1" stop-color="#10B981" />
+    </linearGradient>
+    <clipPath id="coverFrame"><rect width="${W}" height="${H}" rx="18" /></clipPath>
+  </defs>
+  <g clip-path="url(#coverFrame)">
+    <image x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="xMidYMin slice" href="data:image/jpeg;base64,${COVER_B64}" />
+    <rect width="${W}" height="${H}" fill="url(#coverScrim)" />
+    <rect width="${W}" height="${H}" fill="url(#coverFoot)" />
+
+    <text x="64" y="152" font-family="${MONO}" font-size="13" letter-spacing="4" fill="#86EFAC">${esc(HERO.kicker)}</text>
+    <text x="64" y="238" font-family="${SANS}" font-size="60" font-weight="700" letter-spacing="-1" fill="#FFFFFF">${esc(HERO.name)}</text>
+    <rect x="66" y="260" width="64" height="5" rx="2.5" fill="url(#coverAccent)" />
+    <text x="64" y="316" font-family="${SANS}" font-size="19" fill="#D1FAE5">${esc(HERO.tagline)}</text>
+    <text x="64" y="352" font-family="${MONO}" font-size="12.5" fill="#9FD3C4">${esc(HERO.meta)}</text>
+  </g>
+  <rect x="0.75" y="0.75" width="${W - 1.5}" height="${H - 1.5}" rx="17" fill="none" stroke="#A7F3D0" stroke-opacity="0.3" stroke-width="1.5" />
+</svg>
+`
+}
+
 /* ── 输出 ─────────────────────────────────────────────────────────────── */
 mkdirSync(OUT, { recursive: true })
-const written = []
+const written = [['hero-cover.svg', cover()]]
 for (const [key, t] of Object.entries(THEMES)) {
   written.push([`hero-${key}.svg`, hero(t)])
   written.push([`intro-card-${key}.svg`, intro(t)])
